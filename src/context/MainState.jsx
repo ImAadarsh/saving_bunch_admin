@@ -144,12 +144,13 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postStore = async ({ title, file, desc }) => {
+    const postStore = async ({ title, file, desc, isFeatured }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
             formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('isFeatured', isFeatured);
 
             let data = await postRequest(`${baseUrl}/store/postStore`, formdata, false, props, true);
             return data;
@@ -157,12 +158,13 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateStore = async ({ _id, title, file, desc }) => {
+    const updateStore = async ({ _id, title, file, desc, isFeatured }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
             formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('isFeatured', isFeatured);
 
             let data = await putRequest(`${baseUrl}/store/updateStore/${_id}`, formdata, false, props, true);
             return data;

@@ -32,6 +32,10 @@ const Store = ({ notify }) => {
       selector: row => row.desc
     },
     {
+      name: 'Is Featured',
+      selector: row => row.isFeatured
+    },
+    {
       name: 'Image',
       selector: row => <img width={70} src={row?.img?.url} />
     },
