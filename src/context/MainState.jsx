@@ -13,22 +13,32 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postBanner = async ({ file, sequence }) => {
+    const postBanner = async ({ file, sequence, text, buttonLink, subText, buttonText }) => {
         try {
             let formdata = new FormData();
             formdata.append('file', file);
             formdata.append('sequence', sequence);
+            formdata.append('text', text);
+            formdata.append('buttonLink', buttonLink);
+            formdata.append('subText', subText);
+            formdata.append('buttonText', buttonText);
+
             let data = await postRequest(`${baseUrl}/banner/postBanner`, formdata, false, props, true);
             return data;
         } catch (error) {
             console.log(error);
         }
     };
-    const updateBanner = async ({ _id, file, sequence }) => {
+    const updateBanner = async ({ _id, file, sequence, text, buttonLink, subText, buttonText }) => {
         try {
             let formdata = new FormData();
             formdata.append('file', file);
             formdata.append('sequence', sequence);
+            formdata.append('text', text);
+            formdata.append('buttonLink', buttonLink);
+            formdata.append('subText', subText);
+            formdata.append('buttonText', buttonText);
+
             let data = await putRequest(`${baseUrl}/banner/updateBanner/${_id}`, formdata, false, props, true);
             return data;
         } catch (error) {
@@ -52,7 +62,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postCoupan = async ({ store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc }) => {
+    const postCoupan = async ({ store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine }) => {
         try {
             let formdata = new FormData();
             formdata.append('store', JSON.stringify(store));
@@ -66,6 +76,8 @@ const MainState = (props) => {
             formdata.append('is_exclusive', is_exclusive);
             formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('subText', subText);
+            formdata.append('sideLine', sideLine);
 
             let data = await postRequest(`${baseUrl}/coupan/postCoupan`, formdata, false, props, true);
             return data;
@@ -73,7 +85,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateCoupan = async ({ _id, store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc }) => {
+    const updateCoupan = async ({ _id, store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine }) => {
         try {
             let formdata = new FormData();
             formdata.append('store', JSON.stringify(store));
@@ -87,6 +99,8 @@ const MainState = (props) => {
             formdata.append('is_exclusive', is_exclusive);
             formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('subText', subText);
+            formdata.append('sideLine', sideLine);
 
             let data = await putRequest(`${baseUrl}/coupan/updateCoupan/${_id}`, formdata, false, props, true);
             return data;
@@ -144,10 +158,11 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postStore = async ({ title, file, desc, isFeatured }) => {
+    const postStore = async ({ title, file, subHeading, desc, isFeatured }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
+            formdata.append('subHeading', subHeading);
             formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('isFeatured', isFeatured);
@@ -158,10 +173,11 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateStore = async ({ _id, title, file, desc, isFeatured }) => {
+    const updateStore = async ({ _id, title, subHeading, file, desc, isFeatured }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
+            formdata.append('subHeading', subHeading);
             formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('isFeatured', isFeatured);

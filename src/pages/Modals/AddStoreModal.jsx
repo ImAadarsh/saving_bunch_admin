@@ -8,6 +8,7 @@ const AddStoreModal = (props) => {
 
   const [value, setValue] = useState({
     title: '',
+    subHeading: '',
     desc: '',
     file: '',
     isFeatured: ''
@@ -32,6 +33,7 @@ const AddStoreModal = (props) => {
     if (ans.status) {
       setValue({
         title: '',
+        subHeading: '',
         desc: '',
         file: '',
         isFeatured: ''
@@ -75,6 +77,10 @@ const AddStoreModal = (props) => {
                     <div>
                       <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">title</label>
                       <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
+                    </div>
+                    <div>
+                      <label htmlFor="subHeading" className="block mb-2 text-sm font-medium text-gray-900 ">sub Heading</label>
+                      <input type="text" id="subHeading" name="subHeading" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter subHeading .." onChange={handleChange} value={value.subHeading} required />
                     </div>
                     <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>

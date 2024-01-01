@@ -30,7 +30,9 @@ const AddCoupanModal = (props) => {
     is_coupan: '',
     is_popular: '',
     is_exclusive: '',
-    file: ''
+    file: '',
+    subText: '',
+    sideLine: ''
   });
   const [loadFlag, setLoadFlag] = useState(true);
 
@@ -81,7 +83,9 @@ const AddCoupanModal = (props) => {
         is_coupan: '',
         is_popular: '',
         is_exclusive: '',
-        file: ''
+        file: '',
+        subText: '',
+        sideLine: ''
       });
 
       props.notify('success', ans.message);
@@ -125,6 +129,14 @@ const AddCoupanModal = (props) => {
                     <div>
                       <label htmlFor="coupanCode" className="block mb-2 text-sm font-medium text-gray-900 ">Coupan Code</label>
                       <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode} required />
+                    </div>
+                    <div>
+                      <label htmlFor="subText" className="block mb-2 text-sm font-medium text-gray-900 ">sub Text</label>
+                      <input type="text" id="subText" name="subText" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter sub Text .." onChange={handleChange} value={value.subText} required />
+                    </div>
+                    <div>
+                      <label htmlFor="sideLine" className="block mb-2 text-sm font-medium text-gray-900 ">side Line</label>
+                      <input type="text" id="sideLine" name="sideLine" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter sideLine .." onChange={handleChange} value={value.sideLine} required />
                     </div>
                     <div>
                       <label htmlFor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Link</label>

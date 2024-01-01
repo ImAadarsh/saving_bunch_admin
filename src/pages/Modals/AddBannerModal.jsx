@@ -9,6 +9,10 @@ const AddBannerModal = (props) => {
   const [value, setValue] = useState({
     sequence: '',
     file: '',
+    text: '',
+    buttonLink: '',
+    subText: '',
+    buttonText: ''
   });
 
   const handleChange = (e) => {
@@ -32,6 +36,10 @@ const AddBannerModal = (props) => {
       setValue({
         sequence: '',
         file: '',
+        text: '',
+        buttonLink: '',
+        subText: '',
+        buttonText: ''
       });
 
       props.notify('success', ans.message);
@@ -75,6 +83,22 @@ const AddBannerModal = (props) => {
                     <div>
                       <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 ">file</label>
                       <input type="file" id="file" name="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter file .." onChange={handleChange} required />
+                    </div>
+                    <div>
+                      <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 ">text</label>
+                      <input type="text" id="text" name="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter text .." onChange={handleChange} value={value.text} required />
+                    </div>
+                    <div>
+                      <label htmlFor="buttonText" className="block mb-2 text-sm font-medium text-gray-900 ">Button Text</label>
+                      <input type="text" id="buttonText" name="buttonText" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter button Text .." onChange={handleChange} value={value.buttonText} required />
+                    </div>
+                    <div>
+                      <label htmlFor="subText" className="block mb-2 text-sm font-medium text-gray-900 ">sub Text</label>
+                      <input type="text" id="subText" name="subText" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter sub Text .." onChange={handleChange} value={value.subText} required />
+                    </div>
+                    <div>
+                      <label htmlFor="buttonLink" className="block mb-2 text-sm font-medium text-gray-900 ">button Link</label>
+                      <input type="text" id="buttonLink" name="buttonLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter button Link .." onChange={handleChange} value={value.buttonLink} required />
                     </div>
                   </div>
 
