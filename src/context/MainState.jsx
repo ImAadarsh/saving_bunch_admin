@@ -2,7 +2,7 @@ import React from 'react';
 import { deleteRequest, getRequest, postRequest, putRequest } from '../Api/Api';
 import MainContext from './MainContext';
 
-const baseUrl = 'https://savingbunch.ae';
+const baseUrl = 'https://savingbunch.endeavourdigital.in';
 
 const MainState = (props) => {
     const getBanners = async (query) => {
