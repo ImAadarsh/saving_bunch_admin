@@ -7,7 +7,7 @@ import DeleteModal from '../../Util/DeleteModal';
 import useMain from '../../hooks/useMain';
 
 const Submission = ({ notify }) => {
-  const { get } = useMain();
+  const { getAllBrands } = useMain();
 
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
@@ -17,7 +17,7 @@ const Submission = ({ notify }) => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
-    // getData();
+    getData();
   }, [refreshFlag]);
 
   const columns = [
@@ -77,11 +77,11 @@ const Submission = ({ notify }) => {
     // }
   ];
 
-  // const getData = async () => {
-  //   const ans = await getCoupans();
-  //   console.log(ans);
-  //   setData(ans.data);
-  // };
+  const getData = async () => {
+    const ans = await getAllBrands();
+    console.log(ans);
+    setData(ans.data);
+  };
 
   const handleDelete = async () => {
     // console.log(id);
@@ -99,10 +99,6 @@ const Submission = ({ notify }) => {
 
   return (
     <>
-      <AddCoupanModal setRefreshFlag={setRefreshFlag} refreshFlag={refreshFlag} notify={notify} />
-      <EditCoupanModal data1={data1} setRefreshFlag={setRefreshFlag} refreshFlag={refreshFlag} notify={notify} />
-      <DeleteModal msg={msg} handleDelete={handleDelete} />
-
       <DefaultLayout>
         {/* <div className='text-right mb-3'>
           <button type="button" onClick={()=>{
@@ -122,4 +118,4 @@ const Submission = ({ notify }) => {
   );
 };
 
-export default Coupan;
+export default Submission;

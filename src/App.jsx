@@ -11,6 +11,7 @@ import Category from './pages/Category/Category';
 import Store from './pages/Store/Store';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import SignIn from './pages/Authentication/SignIn';
+import Submission from './pages/Submission/Submission';
 
 // import Blog from './pages/Email/Email';
 // import SignIn from './pages/Authentication/SignIn'
@@ -74,6 +75,7 @@ const App = () => {
               <Route path='/coupan' element={<Coupan notify={notify} />} />
               <Route path='/email' element={<Email notify={notify} />} />
               <Route path='/store' element={<Store notify={notify} />} />
+              <Route path='/submissions' element={<Submission notify={notify} />} />
               {/* <Route path='/users' element={<User notify={notify} />} /> */}
             </Route>
 

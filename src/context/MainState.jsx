@@ -54,6 +54,55 @@ const MainState = (props) => {
         }
     };
 
+    const getExBanners = async (query) => {
+        try {
+            let data = await getRequest(`${baseUrl}/exclusivebanner/getBanners`, false, props);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const postExBanner = async ({ file, sequence, text, buttonLink, subText, buttonText }) => {
+        try {
+            let formdata = new FormData();
+            formdata.append('file', file);
+            formdata.append('sequence', sequence);
+            formdata.append('text', text);
+            formdata.append('buttonLink', buttonLink);
+            formdata.append('subText', subText);
+            formdata.append('buttonText', buttonText);
+
+            let data = await postRequest(`${baseUrl}/exclusivebanner/postBanner`, formdata, false, props, true);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const updateExBanner = async ({ _id, file, sequence, text, buttonLink, subText, buttonText }) => {
+        try {
+            let formdata = new FormData();
+            formdata.append('file', file);
+            formdata.append('sequence', sequence);
+            formdata.append('text', text);
+            formdata.append('buttonLink', buttonLink);
+            formdata.append('subText', subText);
+            formdata.append('buttonText', buttonText);
+
+            let data = await putRequest(`${baseUrl}/exclusivebanner/updateBanner/${_id}`, formdata, false, props, true);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const deleteExBanner = async (id) => {
+        try {
+            let data = await deleteRequest(`${baseUrl}/exclusivebanner/deleteBanner/${id}`, {}, false, props);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const getCoupans = async (query) => {
         try {
             let data = await getRequest(`${baseUrl}/coupan/getCoupans`, false, props);
@@ -197,6 +246,56 @@ const MainState = (props) => {
         }
     };
 
+    const getDeals = async (query) => {
+        try {
+            let data = await getRequest(`${baseUrl}/deals/getDeals`, false, props);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const postDeal = async ({ text, file, subText, buttonLink, storeId, isExclusive }) => {
+        try {
+            let formdata = new FormData();
+            formdata.append('text', text);
+            formdata.append('subText', subText);
+            formdata.append('buttonLink', buttonLink);
+            formdata.append('file', file);
+            formdata.append('storeId', storeId);
+            formdata.append('isExclusive', isExclusive);
+
+            let data = await postRequest(`${baseUrl}/deals/postDeals`, formdata, false, props, true);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const updateDeal = async ({ _id, text, file, subText, buttonLink, storeId, isExclusive }) => {
+        try {
+            let formdata = new FormData();
+            formdata.append('text', text);
+            formdata.append('subText', subText);
+            formdata.append('buttonLink', buttonLink);
+            formdata.append('file', file);
+            formdata.append('storeId', storeId);
+            formdata.append('isExclusive', isExclusive);
+
+
+            let data = await putRequest(`${baseUrl}/deals/updateDeal/${_id}`, formdata, false, props, true);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const deleteDeal = async (id) => {
+        try {
+            let data = await deleteRequest(`${baseUrl}/deals/deleteDeal/${id}`, {}, false, props);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const getCategorys = async (query) => {
         try {
             let data = await getRequest(`${baseUrl}/category/getCategorys`, false, props);
@@ -241,9 +340,18 @@ const MainState = (props) => {
         }
     };
 
+    const getAllBrands = async (query) => {
+        try {
+            let data = await getRequest(`${baseUrl}/brands/getAllBrands`, false, props);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <>
-            <MainContext.Provider value={{ getBanners, postBanner, updateBanner, deleteBanner, getCoupans, postCoupan, updateCoupan, deleteCoupan, getEmails, postEmail, updateEmail, deleteEmail, getStores, postStore, updateStore, deleteStore, getCategorys, postCategory, updateCategory, deleteCategory }}>
+            <MainContext.Provider value={{ getBanners, postBanner, updateBanner, deleteBanner, getCoupans, postCoupan, updateCoupan, deleteCoupan, getEmails, postEmail, updateEmail, deleteEmail, getStores, postStore, updateStore, deleteStore, getCategorys, postCategory, updateCategory, deleteCategory, getAllBrands, getDeals, postDeal, updateDeal, deleteDeal, getExBanners, postExBanner, updateExBanner, deleteExBanner }}>
                 {props.children}
             </MainContext.Provider>
         </>

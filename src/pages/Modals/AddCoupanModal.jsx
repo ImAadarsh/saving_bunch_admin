@@ -104,7 +104,7 @@ const AddCoupanModal = (props) => {
           <div className="relative bg-white rounded-lg shadow ">
             <div className="flex items-center justify-between p-5 border-b rounded-t ">
               <h3 className="text-xl font-medium text-gray-900 ">
-                Add new coupan
+                Add new coupon
               </h3>
               <button type="button" onClick={() => {
                 document.getElementById('addCoupanModal').classList.toggle('hidden');
@@ -117,7 +117,7 @@ const AddCoupanModal = (props) => {
             <div className="p-6 space-y-6">
               <form onSubmit={handleSubmit}>
                 <div className="bus-form">
-                  <h4 className="text-xl text-center mb-4 font-bold">Enter Coupan details</h4>
+                  <h4 className="text-xl text-center mb-4 font-bold">Enter Coupon details</h4>
                   <div id="loadFlagModal" className='hidden flex justify-center'>
                     <Spinner />
                   </div>
@@ -127,7 +127,7 @@ const AddCoupanModal = (props) => {
                       <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
                     </div>
                     <div>
-                      <label htmlFor="coupanCode" className="block mb-2 text-sm font-medium text-gray-900 ">Coupan Code</label>
+                      <label htmlFor="coupanCode" className="block mb-2 text-sm font-medium text-gray-900 ">Coupon Code</label>
                       <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode} required />
                     </div>
                     <div>
@@ -169,7 +169,7 @@ const AddCoupanModal = (props) => {
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="is_coupan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">is coupan?</label>
+                      <label htmlFor="is_coupan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">is coupon?</label>
                       <select id="is_coupan" name="is_coupan" value={value.is_coupan} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose </option>
                         <option value="true">Yes</option>
