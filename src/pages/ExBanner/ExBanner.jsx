@@ -3,13 +3,13 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import DataTable from 'react-data-table-component';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import AddBannerModal from '../Modals/AddBannerModal';
 import EditBannerModal from '../Modals/EditBannerModal';
 import DeleteModal from '../../Util/DeleteModal';
 import useMain from '../../hooks/useMain';
+import AddExBannerModal from '../Modals/AddExBannerModal';
 
-const Banner = ({ notify }) => {
-  const { getBanners, deleteBanner } = useMain();
+const ExBanner = ({ notify }) => {
+  const { getExBanners, deleteExBanner } = useMain();
 
   const [data, setData] = useState([]);
   const [data1, setData1] = useState({});
@@ -34,7 +34,7 @@ const Banner = ({ notify }) => {
     {
       name: "Actions",
       selector: row => <div className="flex justify-center">
-        <div onClick={() => {
+        {/* <div onClick={() => {
           setData1(row);
           document.getElementById('editBannerModal').classList.toggle('hidden');
         }} className='mr-2 cursor-pointer'>
@@ -42,7 +42,8 @@ const Banner = ({ notify }) => {
             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
             <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
           </svg>
-        </div>
+        </div> */}
+        
         <div onClick={() => {
           setId(row._id);
           setMsg("Are you sure you want to delete selected banner?");
@@ -59,14 +60,14 @@ const Banner = ({ notify }) => {
   ];
 
   const getData = async () => {
-    const ans = await getBanners();
+    const ans = await getExBanners();
     console.log(ans);
     setData(ans.data);
   };
 
   const handleDelete = async () => {
     // console.log(id);
-    const ans = await deleteBanner({ id });
+    const ans = await deleteExBanner({ id });
 
     // if (ans.status) {
     notify('success', ans.message);
@@ -100,14 +101,14 @@ const Banner = ({ notify }) => {
 
   return (
     <>
-      <AddBannerModal setRefreshFlag={setRefreshFlag} refreshFlag={refreshFlag} notify={notify} />
-      <EditBannerModal data1={data1} setRefreshFlag={setRefreshFlag} refreshFlag={refreshFlag} notify={notify} />
+      <AddExBannerModal setRefreshFlag={setRefreshFlag} refreshFlag={refreshFlag} notify={notify} />
+      {/* <EditBannerModal data1={data1} setRefreshFlag={setRefreshFlag} refreshFlag={refreshFlag} notify={notify} /> */}
       <DeleteModal msg={msg} handleDelete={handleDelete} />
 
       <DefaultLayout>
         <div className='text-right mb-3'>
           <button type="button" onClick={() => {
-            document.getElementById('addBannerModal').classList.toggle('hidden');
+            document.getElementById('addExBannerModal').classList.toggle('hidden');
           }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Banners +</button>
         </div>
 
@@ -125,4 +126,4 @@ const Banner = ({ notify }) => {
   );
 };
 
-export default Banner;
+export default ExBanner;

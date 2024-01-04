@@ -12,6 +12,8 @@ import Store from './pages/Store/Store';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import SignIn from './pages/Authentication/SignIn';
 import Submission from './pages/Submission/Submission';
+import ExBanner from './pages/ExBanner/ExBanner';
+import Deals from './pages/Deals/Deals';
 
 // import Blog from './pages/Email/Email';
 // import SignIn from './pages/Authentication/SignIn'
@@ -71,10 +73,12 @@ const App = () => {
             <Route element={<PrivateRoute />}>
               <Route path='/' element={<Home notify={notify} />} />
               <Route path='/banner' element={<Banner notify={notify} />} />
+              <Route path='/ex-banner' element={<ExBanner notify={notify} />} />
               <Route path='/category' element={<Category notify={notify} />} />
               <Route path='/coupan' element={<Coupan notify={notify} />} />
               <Route path='/email' element={<Email notify={notify} />} />
               <Route path='/store' element={<Store notify={notify} />} />
+              <Route path='/deals' element={<Deals notify={notify} />} />
               <Route path='/submissions' element={<Submission notify={notify} />} />
               {/* <Route path='/users' element={<User notify={notify} />} /> */}
             </Route>
