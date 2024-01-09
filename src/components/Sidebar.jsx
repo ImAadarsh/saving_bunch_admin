@@ -81,7 +81,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink
                   to='/banner'
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('/banner') &&
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
@@ -97,7 +97,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink
                   to='/ex-banner'
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('ex-banner') &&
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
@@ -113,7 +113,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink
                   to='/category'
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('category') &&
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
@@ -128,7 +128,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink
                   to='/coupan'
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('coupan') &&
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
@@ -142,7 +142,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink
                   to='/email'
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('subscription') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('email') &&
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
@@ -170,7 +170,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink
                   to='/store'
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('category') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('store') &&
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
@@ -184,7 +184,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink
                   to='/deals'
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('category') &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('deals') &&
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >

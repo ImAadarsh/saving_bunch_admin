@@ -30,7 +30,8 @@ const EditCoupanModal = (props) => {
     is_coupan: '',
     is_popular: '',
     is_exclusive: '',
-    file: ''
+    file: '',
+    priority: ''
   });
   const [loadFlag, setLoadFlag] = useState(true);
 
@@ -87,7 +88,8 @@ const EditCoupanModal = (props) => {
         is_coupan: '',
         is_popular: '',
         is_exclusive: '',
-        file: ''
+        file: '',
+        priority: ''
       });
 
       props.notify('success', ans.message);
@@ -128,7 +130,10 @@ const EditCoupanModal = (props) => {
                       <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">title</label>
                       <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
                     </div>
-
+                    <div>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
+                      <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
+                    </div>
                     <div>
                       <label htmlFor="coupanCode" className="block mb-2 text-sm font-medium text-gray-900 ">Coupon Code</label>
                       <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode} required />

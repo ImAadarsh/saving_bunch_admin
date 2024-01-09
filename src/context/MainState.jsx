@@ -111,7 +111,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postCoupan = async ({ store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine }) => {
+    const postCoupan = async ({ store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
             formdata.append('store', JSON.stringify(store));
@@ -127,6 +127,7 @@ const MainState = (props) => {
             formdata.append('desc', desc);
             formdata.append('subText', subText);
             formdata.append('sideLine', sideLine);
+            formdata.append('priority', priority);
 
             let data = await postRequest(`${baseUrl}/coupan/postCoupan`, formdata, false, props, true);
             return data;
@@ -134,7 +135,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateCoupan = async ({ _id, store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine }) => {
+    const updateCoupan = async ({ _id, store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
             formdata.append('store', JSON.stringify(store));
@@ -150,6 +151,7 @@ const MainState = (props) => {
             formdata.append('desc', desc);
             formdata.append('subText', subText);
             formdata.append('sideLine', sideLine);
+            formdata.append('priority', priority);
 
             let data = await putRequest(`${baseUrl}/coupan/updateCoupan/${_id}`, formdata, false, props, true);
             return data;
@@ -207,7 +209,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postStore = async ({ title, file, subHeading, desc, isFeatured }) => {
+    const postStore = async ({ title, file, subHeading, desc, isFeatured, priority }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
@@ -215,6 +217,7 @@ const MainState = (props) => {
             formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('isFeatured', isFeatured);
+            formdata.append('priority', priority);
 
             let data = await postRequest(`${baseUrl}/store/postStore`, formdata, false, props, true);
             return data;
@@ -222,7 +225,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateStore = async ({ _id, title, subHeading, file, desc, isFeatured }) => {
+    const updateStore = async ({ _id, title, subHeading, file, desc, isFeatured, priority }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
@@ -230,6 +233,7 @@ const MainState = (props) => {
             formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('isFeatured', isFeatured);
+            formdata.append('priority', priority);
 
             let data = await putRequest(`${baseUrl}/store/updateStore/${_id}`, formdata, false, props, true);
             return data;
@@ -304,12 +308,13 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postCategory = async ({ title, file, desc }) => {
+    const postCategory = async ({ title, file, desc, priority }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
             formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('priority', priority);
 
             const data = await postRequest(`${baseUrl}/category/postCategory`, formdata, false, props, true);
             console.log(data);
@@ -318,12 +323,13 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateCategory = async ({ _id, title, file, desc }) => {
+    const updateCategory = async ({ _id, title, file, desc, priority }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
             formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('priority', priority);
 
             let data = await putRequest(`${baseUrl}/Category/updateCategory/${_id}`, formdata, false, props, true);
             return data;

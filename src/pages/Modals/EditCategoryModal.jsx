@@ -9,7 +9,8 @@ const AddCategoryModal = (props) => {
   const [value, setValue] = useState({
     title: '',
     desc: '',
-    file: ''
+    file: '',
+    priority: ''
   });
 
   useEffect(()=>{
@@ -39,7 +40,8 @@ const AddCategoryModal = (props) => {
       setValue({
         title: '',
         desc: '',
-        file: ''
+        file: '',
+        priority: ''
       });
 
       props.notify('success', ans.message);
@@ -80,6 +82,10 @@ const AddCategoryModal = (props) => {
                     <div>
                       <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">title</label>
                       <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
+                    </div>
+                    <div>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
+                      <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
                     </div>
                     <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
