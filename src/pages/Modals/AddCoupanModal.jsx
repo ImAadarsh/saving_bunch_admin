@@ -3,17 +3,6 @@ import { useState } from 'react';
 import useMain from '../../hooks/useMain';
 import Spinner from '../../Util/Spinner';
 
-// const makeid = (length) => {
-//   let result = '';
-//   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//   const charactersLength = characters.length;
-//   let counter = 0;
-//   while (counter < length) {
-//     result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//     counter += 1;
-//   }
-//   return result;
-// };
 
 const AddCoupanModal = (props) => {
   const { postCoupan, getStores, getCategorys } = useMain();
@@ -62,15 +51,8 @@ const AddCoupanModal = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // let subCoupan = [];
-    // for (let i = 0; i < 4; i++) {
-    //   subCoupan.push({
-    //     coupanCode: makeid(10),
-    //     users: []
-    //   })
-    // }
 
-    const ans = await postCoupan({ ...value, category: category.find(x => x._id === value.category._id), store: stores.find(x => x._id === value.store._id) });
+    const ans = await postCoupan({ ...value });
     console.log(ans);
     if (ans.status) {
       setValue({
@@ -158,7 +140,7 @@ const AddCoupanModal = (props) => {
                     </div>
                     <div>
                       <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
-                      <select id="category" name="category" value={value.category._id} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <select type="tel"  id="category" name="category" value={value.category} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose a category</option>
                         {category.map((e,index)=>{
                           return <option key={index} value={e._id}>{e.title}</option>
@@ -167,7 +149,7 @@ const AddCoupanModal = (props) => {
                     </div>
                     <div>
                       <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an store</label>
-                      <select id="store" name="store" value={value.store._id} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <select id="store" type="tel" name="store" value={value.store} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose a store</option>
                         {stores.map((e,index)=>{
                           return <option key={index} value={e._id}>{e.title}</option>
