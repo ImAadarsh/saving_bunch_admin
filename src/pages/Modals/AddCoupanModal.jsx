@@ -70,7 +70,7 @@ const AddCoupanModal = (props) => {
     //   })
     // }
 
-    const ans = await postCoupan({ ...value, category: category.find(x => x._id === value.category), store: stores.find(x => x._id === value.store) });
+    const ans = await postCoupan({ ...value, category: category.find(x => x._id === value.category._id), store: stores.find(x => x._id === value.store._id) });
     console.log(ans);
     if (ans.status) {
       setValue({
