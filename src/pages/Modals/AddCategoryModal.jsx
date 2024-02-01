@@ -2,17 +2,24 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import useMain from '../../hooks/useMain';
 import Spinner from '../../Util/Spinner';
+import ReactQuill from 'react-quill'
+import "react-quill/dist/quill.snow.css";
 
 const AddCategoryModal = (props) => {
   const { postCategory } = useMain();
+
+  
 
   const [value, setValue] = useState({
     title: '',
     desc: '',
     file: '',
     priority: '',
-  });
+    seoTitle:'',
+    pageTitle:'',
+    name:''
 
+  });
   const handleChange = (e) => {
     if(e.target.name==='file')
     {
@@ -21,11 +28,13 @@ const AddCategoryModal = (props) => {
     else{
       setValue({ ...value, [e.target.name]: e.target.value });
     }
+
+    console.log(value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(value);
+    console.log(value)
 
     const ans = await postCategory(value);
     console.log(ans);
@@ -34,7 +43,10 @@ const AddCategoryModal = (props) => {
         title: '',
         desc: '',
         file: '',
-        priority: ''
+        priority: '',
+        name:'',
+        seoTitle:'',
+        pageTitle:''
       });
 
       props.notify('success', ans.message);
@@ -77,12 +89,26 @@ const AddCategoryModal = (props) => {
                       <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
                     </div>
                     <div>
+                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
+                      <input type="text" id="title" name="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.name} required />
+
+                    </div>
+                    <div>
+                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">seo Title</label>
+                      <input type="text" id="seoTitle" name="seoTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.seoTitle} required />
+                    </div>
+                    <div>
+                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Page Title</label>
+                      <input type="text" id="title" name="pageTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.pageTitle} required />
+                    </div>
+                    <div>
                       <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
                       <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
                     </div>
                     <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                      <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea>
+                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
+                      <ReactQuill value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
                     </div>
                     <div>
                       <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 ">file</label>
