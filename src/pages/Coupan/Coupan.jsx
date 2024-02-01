@@ -32,44 +32,16 @@ const Coupan = ({ notify }) => {
       selector: row => row.title,
     },
     {
-      name: 'store',
-      selector: row => stores.find(x=>x._id===row.store)?.title,
-    },
-    {
-      name: 'description',
-      selector: row => row.desc,
-    },
-    {
-      name: 'link',
-      selector: row => row.link,
-    },
-    {
-      name: 'category',
-      selector: row => cats.find(x=>x._id===row.category)?.title
-    },
-    {
       name: 'Coupon Code',
       selector: row => row.coupanCode,
     },
     {
-      name: 'expiryDate',
+      name: 'Validity',
       selector: row => row.expiryDate,
     },
     {
-      name: 'is coupon?',
-      selector: row => row.is_coupan==="true" ? "Yes" : "No",
-    },
-    {
-      name: 'is popular?',
-      selector: row => row.is_popular==="true" ? "Yes" : "No",
-    },
-    {
-      name: 'is exclusive?',
-      selector: row => row.is_exclusive==="true" ? "Yes" : "No",
-    },
-    {
-      name: 'Image',
-      selector: row => <img src={row?.img?.url} />,
+      name: 'Active',
+      selector: row => row.status,
     },
     {
       name: "Actions",

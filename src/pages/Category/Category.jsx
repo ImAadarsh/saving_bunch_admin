@@ -28,12 +28,8 @@ const Category = ({ notify }) => {
       selector: row => row.title,
     },
     {
-      name: 'Description',
-      selector: row => row.desc,
-    },
-    {
-      name: 'Image',
-      selector: row => <img src={row?.img?.url} width={70} />,
+      name: 'Status',
+      selector: row => row.status,
     },
     {
       name: "Actions",
