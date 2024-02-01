@@ -308,13 +308,16 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postCategory = async ({ title, file, desc, priority }) => {
+    const postCategory = async ({ title, file, desc, priority, seoTitle, name, pageTitle }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
             formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('priority', priority);
+            formdata.append('name', name);
+            formdata.append('seoTitle', seoTitle);
+            formdata.append('pageTitle', pageTitle);
 
             const data = await postRequest(`${baseUrl}/category/postCategory`, formdata, false, props, true);
             console.log(data);

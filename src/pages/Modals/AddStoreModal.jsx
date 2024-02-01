@@ -1,18 +1,28 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useMain from '../../hooks/useMain';
 import Spinner from '../../Util/Spinner';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'
 
 const AddStoreModal = (props) => {
-  const { postStore } = useMain();
+  const { postStore,  getStores, getCategorys  } = useMain();
+  const [stores, setstores] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [storeArr,setStoreArr] = useState([]);
 
   const [value, setValue] = useState({
     title: '',
+    seoTitle:'',
+    pageTitle:'',
+    invalidLink:'',
     subHeading: '',
     desc: '',
     file: '',
     isFeatured: '',
-    priority: ''
+    priority: '',
+    storeOverview:'',
+    status:''
   });
 
   const handleChange = (e) => {
@@ -23,22 +33,47 @@ const AddStoreModal = (props) => {
     else{
       setValue({ ...value, [e.target.name]: e.target.value });
     }
+
+    console.log(storeArr)
+    
   };
+  const getData = async () => {
+    const ans = await getStores();
+    console.log(ans);
+    setstores(ans.data);
+    const ans1 = await getCategorys();
+    console.log(ans1);
+    setCategory(ans1.data);
+  };
+  
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(()=>{
+    console.log(storeArr)
+  },[storeArr])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(value);
+
 
     const ans = await postStore(value);
     console.log(ans);
     if (ans.status) {
       setValue({
         title: '',
+        seoTitle:'',
+        pageTitle:'',
+        invalidLink:'',
         subHeading: '',
         desc: '',
         file: '',
         isFeatured: '',
-        priority: ''
+        priority: '',
+        storeOverview:'',
+        status:''
       });
 
       props.notify('success', ans.message);
@@ -81,6 +116,18 @@ const AddStoreModal = (props) => {
                       <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
                     </div>
                     <div>
+                      <label htmlFor="seoTitle" className="block mb-2 text-sm font-medium text-gray-900 ">Seo Title</label>
+                      <input type="text" id="seoTitle" name="seoTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.seoTitle} required />
+                    </div>
+                    <div>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">pageTitle</label>
+                      <input type="text" id="priority" name="pageTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.pageTitle} required />
+                    </div>
+                    <div>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Invalid Link</label>
+                      <input type="text" id="priority" name="invalidLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.invalidLink} required />
+                    </div>
+                    <div>
                       <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
                       <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
                     </div>
@@ -89,8 +136,26 @@ const AddStoreModal = (props) => {
                       <input type="text" id="subHeading" name="subHeading" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter subHeading .." onChange={handleChange} value={value.subHeading} required />
                     </div>
                     <div>
+                      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
+                      <select multiple type="tel"  id="category" name="category" value={value.category} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choose a category</option>
+                        {category.map((e,index)=>{
+                          return <option key={index} value={e._id}>{e.title}</option>
+                        })}
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an store</label>
+                      <select multiple id="store" type="tel" name="store" onChange={(e)=>{setStoreArr((prev)=> [...prev,e.target.value])}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choose a store</option>
+                        {stores.map((e,index)=>{
+                          return <option key={index} value={e._id}>{e.title}</option>
+                        })}
+                      </select>
+                    </div>
+                    <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                      <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea>
+                      <textarea id="desc" rows="4" name='storeOverview' onChange={handleChange} value={value.storeOverview} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea>
                     </div>
                     <div>
                       <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 ">file</label>
@@ -103,6 +168,19 @@ const AddStoreModal = (props) => {
                         <option value="true">Yes</option>
                         <option value="no">No</option>
                       </select>
+                    </div>
+                    <div>
+                      <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                      <select id="status" name="status" value={value.status} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    
+                        <option selected value="true">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Store Overview</label>
+                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
+                      <ReactQuill value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
                     </div>
                   </div>
 
