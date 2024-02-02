@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 import useMain from '../../hooks/useMain';
 import Spinner from '../../Util/Spinner';
 import ReactQuill from 'react-quill';
+import {MultiSelect} from "react-multi-select-component"
 import 'react-quill/dist/quill.snow.css'
 
 const AddStoreModal = (props) => {
   const { postStore,  getStores, getCategorys  } = useMain();
   const [stores, setstores] = useState([]);
   const [category, setCategory] = useState([]);
-  const [storeArr,setStoreArr] = useState([]);
 
   const [value, setValue] = useState({
     title: '',
@@ -22,7 +22,9 @@ const AddStoreModal = (props) => {
     isFeatured: '',
     priority: '',
     storeOverview:'',
-    status:''
+    status:'',
+    similarStore:[],
+    category:[]
   });
 
   const handleChange = (e) => {
@@ -32,10 +34,7 @@ const AddStoreModal = (props) => {
     }
     else{
       setValue({ ...value, [e.target.name]: e.target.value });
-    }
-
-    console.log(storeArr)
-    
+    }    
   };
   const getData = async () => {
     const ans = await getStores();
@@ -50,9 +49,6 @@ const AddStoreModal = (props) => {
     getData();
   }, []);
 
-  useEffect(()=>{
-    console.log(storeArr)
-  },[storeArr])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +69,9 @@ const AddStoreModal = (props) => {
         isFeatured: '',
         priority: '',
         storeOverview:'',
-        status:''
+        status:'',
+        similarStore:[],
+        category:[]
       });
 
       props.notify('success', ans.message);
@@ -137,21 +135,32 @@ const AddStoreModal = (props) => {
                     </div>
                     <div>
                       <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
-                      <select multiple type="tel"  id="category" name="category" value={value.category} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <MultiSelect value={value.category} options={
+                            category.map((e,index)=> {return {label:e.title,value:e._id}})
+                          } onChange={(data)=>{setValue({...value,['category']:data})}}/>
+                      </div>
+                      {/* <select multiple type="tel"  id="category" name="category" value={value.category} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose a category</option>
                         {category.map((e,index)=>{
                           return <option key={index} value={e._id}>{e.title}</option>
                         })}
-                      </select>
+                      </select> */}
                     </div>
                     <div>
                       <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an store</label>
-                      <select multiple id="store" type="tel" name="store" onChange={(e)=>{setStoreArr((prev)=> [...prev,e.target.value])}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
+                        <MultiSelect value={value.similarStore} options={
+                          stores.map((e,index)=> {return {label:e.title,value:e._id}})
+                        } onChange={(data) => {setValue({...value,['similarStore']:data});
+                       }} />
+                      </div>
+                      {/* <select multiple value={value.similarStore} id="store" type="tel" name="store" onChange={(e)=>{setValue({...value,})}} >
                         <option selected>Choose a store</option>
                         {stores.map((e,index)=>{
                           return <option key={index} value={e._id}>{e.title}</option>
                         })}
-                      </select>
+                      </select> */}
                     </div>
                     <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>

@@ -209,16 +209,25 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postStore = async ({ title, file, subHeading, desc, isFeatured, priority }) => {
+    const postStore = async ({ title, seoTitle, pageTitle,invalidLink, storeOverview, status,similarStore, category, file, subHeading, desc, isFeatured, priority }) => {
         try {
             let formdata = new FormData();
+
+            const modifiedStore = [];
             formdata.append('title', title);
             formdata.append('subHeading', subHeading);
             formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('isFeatured', isFeatured);
             formdata.append('priority', priority);
-
+            formdata.append('seoTitle', seoTitle);
+            formdata.append('pageTitle', pageTitle);
+            formdata.append('invalidLink', invalidLink);
+            formdata.append('storeOverview', storeOverview);
+            formdata.append('status', status);
+            formdata.append('similarStore', similarStore);
+            formdata.append('category',category);
+            console.log(formdata)
             let data = await postRequest(`${baseUrl}/store/postStore`, formdata, false, props, true);
             return data;
         } catch (error) {

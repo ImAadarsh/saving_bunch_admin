@@ -50,8 +50,7 @@ const AddCoupanModal = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-
+    console.log(value);
     const ans = await postCoupan({ ...value });
     console.log(ans);
     if (ans.status) {
