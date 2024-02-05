@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { deleteRequest, getRequest, postRequest, putRequest } from '../Api/Api';
 import MainContext from './MainContext';
 
-const baseUrl = 'http://127.0.0.1:5011';
+const baseUrl = 'https://savingbunch.endeavourdigital.in';
 
 const MainState = (props) => {
     const getBanners = async (query) => {
@@ -213,7 +213,6 @@ const MainState = (props) => {
     const postStore = async ({ title, seoTitle, pageTitle,invalidLink, storeOverview,similarStore, category, file, subHeading, desc, isFeatured, priority }) => {
         try {
             let formdata = new FormData();
-<<<<<<< HEAD
 
             let modifiedStore = [];
             let modifiedCategory = [];
@@ -224,10 +223,6 @@ const MainState = (props) => {
                 modifiedCategory.push(category[i].value);
             }
             console.log(modifiedCategory)
-=======
-            // console.log(formdata)
-            const modifiedStore = similarStore.map((ele,index)=> ele);
->>>>>>> 46bf46dfaa22ea2ca9330023c45c84f19d473a96
             formdata.append('title', title);
             formdata.append('subHeading', subHeading);
             formdata.append('file', file);
@@ -238,20 +233,10 @@ const MainState = (props) => {
             formdata.append('pageTitle', pageTitle);
             formdata.append('invalidLink', invalidLink);
             formdata.append('storeOverview', storeOverview);
-<<<<<<< HEAD
-             formdata.append('status', status);
              formdata.append('similarStore', JSON.stringify(modifiedStore))
             formdata.append('category',JSON.stringify(modifiedCategory));
              console.log(formdata)
-=======
-            formdata.append('category',category);
-              // Convert similarStore array to an array of mongoose.Schema.Types.ObjectId
-        // const similarStoresIds = similarStore.map(store => mongoose.Types.ObjectId(store.value));
-            formdata.append('similarStore', modifiedStore);
-        
-        console.log(formdata);
-            console.log(formdata)
->>>>>>> 46bf46dfaa22ea2ca9330023c45c84f19d473a96
+
             let data = await postRequest(`${baseUrl}/store/postStore`, formdata, false, props, true);
             return data;
         } catch (error) {
