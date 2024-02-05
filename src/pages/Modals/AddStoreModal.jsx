@@ -29,17 +29,19 @@ const AddStoreModal = (props) => {
   });
 
   const handleChange = (e) => {
-    if(e.target.name==='file')
-    {
-      setValue({ ...value, [e.target.name]: e.target.files[0] });
+    if (e.target.name === 'file') {
+        setValue({ ...value, [e.target.name]: e.target.files[0] });
+    } else if (e.target.name === 'category') {
+        // Handle MultiSelect for category
+        setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
+    } else if (e.target.name === 'similarStore') {
+        // Handle MultiSelect for similarStore
+        setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
+    } else {
+        setValue({ ...value, [e.target.name]: e.target.value });
     }
-    else if(e.target.name === 'name'){
-      setValue({ ...value, [e.target.name]: e.target.options[e.target.selectedIndex].value });
-    }
-    else{
-      setValue({ ...value, [e.target.name]: e.target.value });
-    }    
-  };
+};
+
   const getData = async () => {
     const ans = await getStores();
     console.log(ans);
@@ -156,7 +158,7 @@ const AddStoreModal = (props) => {
                       <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
                         <MultiSelect value={value.similarStore} options={
                           stores.map((e,index)=> {return {label:e.title,value:e._id}})
-                        } onChange={(data) => {setValue({...value,['similarStore']:data});
+                        } onChange={(data) => {setValue({...value,['similarStore']:data}); console.log(data);
                        }} />
                       </div>
                       {/* <select multiple value={value.similarStore} id="store" type="tel" name="store" onChange={(e)=>{setValue({...value,})}} >
