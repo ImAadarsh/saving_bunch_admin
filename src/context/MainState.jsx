@@ -1,8 +1,9 @@
 import React from 'react';
+import mongoose from 'mongoose';
 import { deleteRequest, getRequest, postRequest, putRequest } from '../Api/Api';
 import MainContext from './MainContext';
 
-const baseUrl = 'https://savingbunch.endeavourdigital.in';
+const baseUrl = 'http://127.0.0.1:5011';
 
 const MainState = (props) => {
     const getBanners = async (query) => {
@@ -209,11 +210,11 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postStore = async ({ title, seoTitle, pageTitle,invalidLink, storeOverview, status,similarStore, category, file, subHeading, desc, isFeatured, priority }) => {
+    const postStore = async ({ title, seoTitle, pageTitle,invalidLink, storeOverview,similarStore, category, file, subHeading, desc, isFeatured, priority }) => {
         try {
             let formdata = new FormData();
-
-            const modifiedStore = [];
+            // console.log(formdata)
+            const modifiedStore = similarStore.map((ele,index)=> ele);
             formdata.append('title', title);
             formdata.append('subHeading', subHeading);
             formdata.append('file', file);
@@ -224,9 +225,12 @@ const MainState = (props) => {
             formdata.append('pageTitle', pageTitle);
             formdata.append('invalidLink', invalidLink);
             formdata.append('storeOverview', storeOverview);
-            formdata.append('status', status);
-            formdata.append('similarStore', similarStore);
             formdata.append('category',category);
+              // Convert similarStore array to an array of mongoose.Schema.Types.ObjectId
+        // const similarStoresIds = similarStore.map(store => mongoose.Types.ObjectId(store.value));
+            formdata.append('similarStore', modifiedStore);
+        
+        console.log(formdata);
             console.log(formdata)
             let data = await postRequest(`${baseUrl}/store/postStore`, formdata, false, props, true);
             return data;
