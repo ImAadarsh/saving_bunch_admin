@@ -8,6 +8,7 @@ import 'react-quill/dist/quill.snow.css'
 
 const AddStoreModal = (props) => {
   const { postStore,  getStores, getCategorys  } = useMain();
+
   const [stores, setstores] = useState([]);
   const [category, setCategory] = useState([]);
 
@@ -31,6 +32,9 @@ const AddStoreModal = (props) => {
     if(e.target.name==='file')
     {
       setValue({ ...value, [e.target.name]: e.target.files[0] });
+    }
+    else if(e.target.name === 'name'){
+      setValue({ ...value, [e.target.name]: e.target.options[e.target.selectedIndex].value });
     }
     else{
       setValue({ ...value, [e.target.name]: e.target.value });

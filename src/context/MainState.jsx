@@ -213,7 +213,15 @@ const MainState = (props) => {
         try {
             let formdata = new FormData();
 
-            const modifiedStore = [];
+            let modifiedStore = [];
+            let modifiedCategory = [];
+            for(let i=0;i<similarStore.length;++i){
+                modifiedStore.push(similarStore[i].value);
+            }
+            for(let i=0;i<category.length;++i){
+                modifiedCategory.push(category[i].value);
+            }
+            console.log(modifiedCategory)
             formdata.append('title', title);
             formdata.append('subHeading', subHeading);
             formdata.append('file', file);
@@ -224,10 +232,10 @@ const MainState = (props) => {
             formdata.append('pageTitle', pageTitle);
             formdata.append('invalidLink', invalidLink);
             formdata.append('storeOverview', storeOverview);
-            formdata.append('status', status);
-            formdata.append('similarStore', similarStore);
-            formdata.append('category',category);
-            console.log(formdata)
+             formdata.append('status', status);
+             formdata.append('similarStore', JSON.stringify(modifiedStore))
+            formdata.append('category',JSON.stringify(modifiedCategory));
+             console.log(formdata)
             let data = await postRequest(`${baseUrl}/store/postStore`, formdata, false, props, true);
             return data;
         } catch (error) {
