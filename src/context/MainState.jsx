@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { deleteRequest, getRequest, postRequest, putRequest } from '../Api/Api';
 import MainContext from './MainContext';
 
-const baseUrl = 'https://savingbunch.endeavourdigital.in';
+const baseUrl = 'http://127.0.0.1:5011';
 
 const MainState = (props) => {
     const getBanners = async (query) => {
@@ -115,8 +115,12 @@ const MainState = (props) => {
     const postCoupan = async ({ store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
+            let modifiedCategory = [];
+            for(let i=0;i<category.length;++i){
+                modifiedCategory.push(category[i].value);
+            }
             formdata.append('store', JSON.stringify(store));
-            formdata.append('category', JSON.stringify(category));
+            formdata.append('category', JSON.stringify(modifiedCategory));
             formdata.append('title', title);
             formdata.append('coupanCode', coupanCode);
             formdata.append('link', link);
@@ -124,7 +128,6 @@ const MainState = (props) => {
             formdata.append('is_coupan', is_coupan);
             formdata.append('is_popular', is_popular);
             formdata.append('is_exclusive', is_exclusive);
-            formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('subText', subText);
             formdata.append('sideLine', sideLine);
