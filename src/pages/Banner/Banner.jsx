@@ -66,7 +66,7 @@ const Banner = ({ notify }) => {
 
   const handleDelete = async () => {
     // console.log(id);
-    const ans = await deleteBanner({ id });
+    const ans = await deleteBanner(id);
 
     // if (ans.status) {
     notify('success', ans.message);

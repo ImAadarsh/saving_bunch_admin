@@ -97,7 +97,7 @@ const Deals = ({ notify }) => {
 
   const handleDelete = async () => {
     // console.log(id);
-    const ans = await deleteDeal({ id });
+    const ans = await deleteDeal(id);
 
     // if (ans.status) {
     notify('success', ans.message);

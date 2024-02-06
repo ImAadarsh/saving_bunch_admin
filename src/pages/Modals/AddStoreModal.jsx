@@ -159,7 +159,7 @@ const AddStoreModal = (props) => {
                     </div>
                     <div>
                       <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Invalid Link</label>
-                      <input type="text" id="priority" name="invalidLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.invalidLink} required />
+                      <input type="text" id="priority" name="invalidLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.invalidLink}  />
                     </div>
                     <div>
                       <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
@@ -176,12 +176,6 @@ const AddStoreModal = (props) => {
                             category.map((e,index)=> {return {label:e.title,value:e._id}})
                           } onChange={(data)=>{setValue({...value,['category']:data})}}/>
                       </div>
-                      {/* <select multiple type="tel"  id="category" name="category" value={value.category} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Choose a category</option>
-                        {category.map((e,index)=>{
-                          return <option key={index} value={e._id}>{e.title}</option>
-                        })}
-                      </select> */}
                     </div>
                     <div>
                       <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an store</label>
@@ -191,12 +185,6 @@ const AddStoreModal = (props) => {
                         } onChange={(data) => {setValue({...value,['similarStore']:data}); console.log(data);
                        }} />
                       </div>
-                      {/* <select multiple value={value.similarStore} id="store" type="tel" name="store" onChange={(e)=>{setValue({...value,})}} >
-                        <option selected>Choose a store</option>
-                        {stores.map((e,index)=>{
-                          return <option key={index} value={e._id}>{e.title}</option>
-                        })}
-                      </select> */}
                     </div>
                     <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
@@ -226,7 +214,7 @@ const AddStoreModal = (props) => {
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Store Overview</label>
                       {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
                       <ReactQuill value={value.desc} theme="snow" modules={quillModules}
-      formats={quillFormats} onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
+                      formats={quillFormats} onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
                     </div>
                   </div>
 

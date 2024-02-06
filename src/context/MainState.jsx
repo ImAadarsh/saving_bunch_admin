@@ -142,8 +142,8 @@ const MainState = (props) => {
     const updateCoupan = async ({ _id, store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
-            formdata.append('store', JSON.stringify(store));
-            formdata.append('category', JSON.stringify(category));
+            // formdata.append('store', JSON.stringify(store));
+            // formdata.append('category', JSON.stringify(category));
             formdata.append('title', title);
             formdata.append('coupanCode', coupanCode);
             formdata.append('link', link);
@@ -246,15 +246,20 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateStore = async ({ _id, title, subHeading, file, desc, isFeatured, priority }) => {
+    const updateStore = async ({ _id, title, seoTitle, pageTitle,invalidLink, storeOverview, file, subHeading, desc, isFeatured, priority }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
             formdata.append('subHeading', subHeading);
             formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('status', status);
             formdata.append('isFeatured', isFeatured);
             formdata.append('priority', priority);
+            formdata.append('seoTitle', seoTitle);
+            formdata.append('pageTitle', pageTitle);
+            formdata.append('invalidLink', invalidLink);
+            formdata.append('storeOverview', storeOverview);
 
             let data = await putRequest(`${baseUrl}/store/updateStore/${_id}`, formdata, false, props, true);
             return data;

@@ -85,7 +85,7 @@ const Submission = ({ notify }) => {
 
   const handleDelete = async () => {
     // console.log(id);
-    const ans = await deleteCoupan({id});
+    const ans = await deleteCoupan(id);
 
     // if (ans.status) {
       notify('success', ans.message);

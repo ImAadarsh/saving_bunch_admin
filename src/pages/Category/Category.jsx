@@ -66,7 +66,7 @@ const Category = ({ notify }) => {
 
   const handleDelete = async () => {
     // console.log(id);
-    const ans = await deleteCategory({id});
+    const ans = await deleteCategory(id);
 
     // if (ans.status) {
       notify('success', ans.message);
