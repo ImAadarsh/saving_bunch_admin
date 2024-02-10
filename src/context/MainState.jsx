@@ -112,7 +112,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postCoupan = async ({ store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine, priority }) => {
+    const postCoupan = async ({ store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
             let modifiedCategory = [];
@@ -139,7 +139,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateCoupan = async ({ _id, store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, file, desc, subText, sideLine, priority }) => {
+    const updateCoupan = async ({ _id, store, category,status, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
             // formdata.append('store', JSON.stringify(store));
@@ -151,8 +151,8 @@ const MainState = (props) => {
             formdata.append('is_coupan', is_coupan);
             formdata.append('is_popular', is_popular);
             formdata.append('is_exclusive', is_exclusive);
-            formdata.append('file', file);
             formdata.append('desc', desc);
+            formdata.append('status', status);
             formdata.append('subText', subText);
             formdata.append('sideLine', sideLine);
             formdata.append('priority', priority);
@@ -213,7 +213,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const postStore = async ({ title, seoTitle, pageTitle,invalidLink, storeOverview,similarStore, category, file, subHeading, desc, isFeatured, priority }) => {
+    const postStore = async ({ title, seoTitle, pageTitle,invalidLink, storeOverview,similarStore, category, file, subHeading, desc, isFeatured, priority, status }) => {
         try {
             let formdata = new FormData();
 
@@ -352,13 +352,17 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateCategory = async ({ _id, title, file, desc, priority }) => {
+    const updateCategory = async ({ _id, title, file, desc, priority, seoTitle, pageTitle, name, status }) => {
         try {
             let formdata = new FormData();
             formdata.append('title', title);
             formdata.append('file', file);
             formdata.append('desc', desc);
             formdata.append('priority', priority);
+            formdata.append('seoTitle', seoTitle);
+            formdata.append('pageTitle', pageTitle);
+            formdata.append('name', name);
+            formdata.append('status', status);
 
             let data = await putRequest(`${baseUrl}/Category/updateCategory/${_id}`, formdata, false, props, true);
             return data;

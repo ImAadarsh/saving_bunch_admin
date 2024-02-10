@@ -118,7 +118,7 @@ const AddCategoryModal = (props) => {
                     </div>
                     <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
-                      <input type="text" id="title" name="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.name} required />
+                      <input type="text" id="name" name="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Name .." onChange={handleChange} value={value.name} required />
 
                     </div>
                     <div>
@@ -133,18 +133,18 @@ const AddCategoryModal = (props) => {
                       <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
                       <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
                     </div>
-                    <div>
-                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
-                      <ReactQuill  modules={quillModules}
-      formats={quillFormats} value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
-                    </div>
+                    
                     <div>
                       <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 ">file</label>
                       <input type="file" id="file" name="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter file .." onChange={handleChange} required />
                     </div>
                   </div>
-
+                  <div>
+                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
+                      <ReactQuill  modules={quillModules}
+      formats={quillFormats} value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
+                    </div>
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>
                   </div>

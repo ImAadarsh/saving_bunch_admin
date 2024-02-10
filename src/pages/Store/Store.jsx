@@ -37,7 +37,10 @@ const Store = ({ notify }) => {
     },
     {
       name: 'Status',
-      selector: (row) => (row.status === false ? 'Inactive' : 'Active'),
+      selector: row => (
+        row.status ? 'Active' : 'Inactive'
+        // Replace 'Active' and 'Inactive' with your desired labels for true and false values
+      ),
     },    
     {
       name: "Actions",

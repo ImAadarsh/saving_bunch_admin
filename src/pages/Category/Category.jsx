@@ -24,12 +24,20 @@ const Category = ({ notify }) => {
 
   const columns = [
     {
+      name: 'Name',
+      selector: row => row.name,
+    },
+    {
       name: 'Title',
       selector: row => row.title,
     },
+    
     {
       name: 'Status',
-      selector: row => row.status,
+      selector: row => (
+        row.status ? 'Active' : 'Inactive'
+        // Replace 'Active' and 'Inactive' with your desired labels for true and false values
+      ),
     },
     {
       name: "Actions",

@@ -135,11 +135,11 @@ const quillFormats = [
                   </div>
                   <div className="grid gap-6 px-0.5 py-0.5 mb-6 md:grid-cols-2">
                     <div>
-                      <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">title</label>
+                      <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
                       <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
                     </div>
                     <div>
-                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Priority</label>
                       <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
                     </div>
                     <div>
@@ -147,11 +147,11 @@ const quillFormats = [
                       <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode}  />
                     </div>
                     <div>
-                      <label htmlFor="subText" className="block mb-2 text-sm font-medium text-gray-900 ">sub Text</label>
+                      <label htmlFor="subText" className="block mb-2 text-sm font-medium text-gray-900 ">Sub Text</label>
                       <input type="text" id="subText" name="subText" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter sub Text .." onChange={handleChange} value={value.subText} required />
                     </div>
                     <div>
-                      <label htmlFor="sideLine" className="block mb-2 text-sm font-medium text-gray-900 ">side Line</label>
+                      <label htmlFor="sideLine" className="block mb-2 text-sm font-medium text-gray-900 ">Side Line</label>
                       <input type="text" id="sideLine" name="sideLine" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter sideLine .." onChange={handleChange} value={value.sideLine} required />
                     </div>
                     <div>
@@ -166,7 +166,7 @@ const quillFormats = [
                       <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
                       <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <MultiSelect value={value.category} options={
-                            category.map((e,index)=> {return {label:e.title,value:e._id}})
+                            category.map((e,index)=> {return {label:e.name,value:e._id}})
                           } onChange={(data)=>{setValue({...value,['category']:data})}}/>
                       </div>
                     </div>
@@ -180,36 +180,44 @@ const quillFormats = [
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="is_coupan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">is coupon?</label>
+                      <label htmlFor="is_coupan" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Is coupon?</label>
                       <select id="is_coupan" name="is_coupan" value={value.is_coupan} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose </option>
                         <option value="true">Yes</option>
-                        <option value="no">No</option>
+                        <option value="false">No</option>
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="is_exclusive" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">is exclusive?</label>
+                      <label htmlFor="is_exclusive" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Is exclusive?</label>
                       <select id="is_exclusive" name="is_exclusive" value={value.is_exclusive} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose </option>
                         <option value="true">Yes</option>
-                        <option value="no">No</option>
+                        <option value="false">No</option>
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="is_popular" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">is popular?</label>
+                      <label htmlFor="is_popular" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Is popular?</label>
                       <select id="is_popular" name="is_popular" value={value.is_popular} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose </option>
                         <option value="true">Yes</option>
-                        <option value="no">No</option>
+                        <option value="false">No</option>
                       </select>
                     </div>
-                    <div>
-                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">description</label>
+                     <div>
+                      <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Visible On Website</label>
+                      <select id="status" name="status" value={value.status} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected value="true">Availiable</option>
+                        <option value="false">Unavailiable</option>
+                      </select>
+                    </div>
+                    
+                  </div>
+                  <div>
+                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
                       {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
                       <ReactQuill  modules={quillModules}
       formats={quillFormats} value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
                     </div>
-                  </div>
 
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>

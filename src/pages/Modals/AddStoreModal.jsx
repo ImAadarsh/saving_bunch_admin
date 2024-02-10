@@ -146,31 +146,32 @@ const AddStoreModal = (props) => {
 
                   <div className="grid gap-6 px-0.5 py-0.5 mb-6 md:grid-cols-2">
                     <div>
-                      <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">title</label>
-                      <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter title .." onChange={handleChange} value={value.title} required />
+                      <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">Store Name</label>
+                      <input type="text" id="title" name="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Name .." onChange={handleChange} value={value.title} required />
                     </div>
                     <div>
-                      <label htmlFor="seoTitle" className="block mb-2 text-sm font-medium text-gray-900 ">Seo Title</label>
-                      <input type="text" id="seoTitle" name="seoTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.seoTitle} required />
-                    </div>
-                    <div>
-                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">pageTitle</label>
-                      <input type="text" id="priority" name="pageTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.pageTitle} required />
-                    </div>
-                    <div>
-                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Invalid Link</label>
-                      <input type="text" id="priority" name="invalidLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.invalidLink}  />
-                    </div>
-                    <div>
-                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
-                      <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
-                    </div>
-                    <div>
-                      <label htmlFor="subHeading" className="block mb-2 text-sm font-medium text-gray-900 ">sub Heading</label>
+                      <label htmlFor="subHeading" className="block mb-2 text-sm font-medium text-gray-900 ">Store Heading</label>
                       <input type="text" id="subHeading" name="subHeading" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter subHeading .." onChange={handleChange} value={value.subHeading} required />
                     </div>
                     <div>
-                      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
+                      <label htmlFor="seoTitle" className="block mb-2 text-sm font-medium text-gray-900 ">Seo Title</label>
+                      <input type="text" id="seoTitle" name="seoTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Seo Title .." onChange={handleChange} value={value.seoTitle} required />
+                    </div>
+                    <div>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Page Title</label>
+                      <input type="text" id="priority" name="pageTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Seo Title .." onChange={handleChange} value={value.pageTitle} required />
+                    </div>
+                    <div>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Invalid Link</label>
+                      <input type="text" id="priority" name="invalidLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Invaild Link .." onChange={handleChange} value={value.invalidLink}  />
+                    </div>
+                    <div>
+                      <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Priority</label>
+                      <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Categories</label>
                       <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <MultiSelect value={value.category} options={
                             category.map((e,index)=> {return {label:e.title,value:e._id}})
@@ -178,7 +179,7 @@ const AddStoreModal = (props) => {
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an store</label>
+                      <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Stores</label>
                       <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
                         <MultiSelect value={value.similarStore} options={
                           stores.map((e,index)=> {return {label:e.title,value:e._id}})
@@ -195,29 +196,28 @@ const AddStoreModal = (props) => {
                       <input type="file" id="file" name="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter file .." onChange={handleChange} required />
                     </div>
                     <div>
-                      <label htmlFor="isFeatured" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">is featured?</label>
+                      <label htmlFor="isFeatured" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Make Store featured?</label>
                       <select id="isFeatured" name="isFeatured" value={value.isFeatured} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Choose </option>
-                        <option value="true">Yes</option>
-                        <option value="no">No</option>
+                        <option selected value="true">Featured</option>
+                        <option value="false">Unfeatured</option>
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                      <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Make Visible Website</label>
                       <select id="status" name="status" value={value.status} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    
-                        <option selected value="true">Yes</option>
-                        <option value="no">No</option>
+                        <option >Choose</option>
+                        <option  value="true">Visible</option>
+                        <option value="false">Hide</option>
                       </select>
                     </div>
-                    <div>
+                  </div>
+                  <div>
                       <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Store Overview</label>
                       {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
                       <ReactQuill value={value.desc} theme="snow" modules={quillModules}
                       formats={quillFormats} onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
                     </div>
-                  </div>
-
+<br/>
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>
                   </div>

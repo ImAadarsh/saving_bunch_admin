@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import useMain from '../../hooks/useMain';
 import Spinner from '../../Util/Spinner';
+import ReactQuill from 'react-quill'
+import "react-quill/dist/quill.snow.css";
+import {MultiSelect} from "react-multi-select-component"
 
 // const makeid = (length) => {
 //   let result = '';
@@ -55,24 +58,18 @@ const EditCoupanModal = (props) => {
   };
 
   const handleChange = (e) => {
-    if (e.target.name === 'file') {
-      setValue({ ...value, [e.target.name]: e.target.files[0] });
-    }
-    else {
-      setValue({ ...value, [e.target.name]: e.target.value });
-    }
-  };
+    if (e.target.name === 'category') {
+     // Handle MultiSelect for category
+     setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
+ }
+   else {
+     setValue({ ...value, [e.target.name]: e.target.value });
+   }
+ };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // let subCoupan = [];
-    // for (let i = 0; i < 4; i++) {
-    //   subCoupan.push({
-    //     coupanCode: makeid(10),
-    //     users: []
-    //   })
-    // }
 
     const ans = await updateCoupan({ ...value, category: category.find(x => x._id === value.category), store: stores.find(x => x._id === value.store) });
     console.log(ans);
@@ -100,6 +97,34 @@ const EditCoupanModal = (props) => {
       props.notify('error', ans.message);
     }
   };
+    // Quill options with added table module
+    const quillModules = {
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ color: [] }, { background: [] }],
+          [{ align: [] }],
+          ['link', 'image', 'video'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['blockquote', 'code-block'],
+          ['table'], // Added table option
+          ['clean']
+        ],
+      },
+    };
+  
+    // Quill formats
+    const quillFormats = [
+      'header',
+      'bold', 'italic', 'underline', 'strike',
+      'color', 'background',
+      'align',
+      'link', 'image', 'video',
+      'list', 'bullet',
+      'blockquote', 'code-block',
+      'table', // Added table format
+    ];
 
   return (
     <>
@@ -151,13 +176,12 @@ const EditCoupanModal = (props) => {
                       <input type="file" id="file" name="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter file .." onChange={handleChange} />
                     </div>
                     <div>
-                      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a category</label>
-                      <select id="category" name="category" value={value.category} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Choose a category</option>
-                        {category.map((e,index)=>{
-                          return <option key={index} value={e._id}>{e.title}</option>
-                        })}
-                      </select>
+                      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
+                      <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <MultiSelect value={value.category} options={
+                            category.map((e,index)=> {return {label:e.name,value:e._id}})
+                          } onChange={(data)=>{setValue({...value,['category']:data})}}/>
+                      </div>
                     </div>
                     <div>
                       <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a store</label>
@@ -193,11 +217,20 @@ const EditCoupanModal = (props) => {
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">description</label>
-                      <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea>
+                      <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Visible On Website</label>
+                      <select id="status" name="status" value={value.status} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected value="true">Availiable</option>
+                        <option value="false">Unavailiable</option>
+                      </select>
                     </div>
+              
                   </div>
-
+                  <div>
+                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
+                      <ReactQuill  modules={quillModules}
+      formats={quillFormats} value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
+                    </div>
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>
                   </div>

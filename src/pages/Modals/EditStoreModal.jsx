@@ -181,19 +181,18 @@ const EditStoreModal = (props) => {
                       <input type="file" id="file" name="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter file .." onChange={handleChange} />
                     </div>
                     <div>
-                      <label htmlFor="isFeatured" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">is featured?</label>
+                      <label htmlFor="isFeatured" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Make featured?</label>
                       <select id="isFeatured" name="isFeatured" value={value.isFeatured} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose </option>
-                        <option value="true">Yes</option>
-                        <option value="no">No</option>
+                        <option value="true">Featured</option>
+                        <option value="false">Unfeatured</option>
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                      <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Visible On Website</label>
                       <select id="status" name="status" value={value.status} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    
-                        <option selected value="true">Yes</option>
-                        <option value="no">No</option>
+                        <option selected value="true">Visible</option>
+                        <option value="false">Not Visible</option>
                       </select>
                     </div>
                   </div>
