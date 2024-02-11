@@ -3,45 +3,74 @@ import { useState, useEffect } from 'react';
 import useMain from '../../hooks/useMain';
 import Spinner from '../../Util/Spinner';
 import ReactQuill from 'react-quill';
-import {MultiSelect} from "react-multi-select-component"
+import { MultiSelect } from "react-multi-select-component"
 import 'react-quill/dist/quill.snow.css'
 import 'quill/dist/quill.core.css'; // Import the Quill core styles
 
+// Quill options with added table module
+const quillModules = {
+  toolbar: {
+    container: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ['link', 'image', 'video'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['blockquote', 'code-block'],
+      ['table'], // Added table option
+      ['clean']
+    ],
+  },
+};
+
+// Quill formats
+const quillFormats = [
+  'header',
+  'bold', 'italic', 'underline', 'strike',
+  'color', 'background',
+  'align',
+  'link', 'image', 'video',
+  'list', 'bullet',
+  'blockquote', 'code-block',
+  'table', // Added table format
+];
+
 const AddStoreModal = (props) => {
-  const { postStore,  getStores, getCategorys  } = useMain();
+  const { postStore, getStores, getCategorys } = useMain();
 
   const [stores, setstores] = useState([]);
   const [category, setCategory] = useState([]);
 
   const [value, setValue] = useState({
     title: '',
-    seoTitle:'',
-    pageTitle:'',
-    invalidLink:'',
+    seoTitle: '',
+    pageTitle: '',
+    invalidLink: '',
     subHeading: '',
     desc: '',
     file: '',
     isFeatured: '',
     priority: '',
-    storeOverview:'',
-    status:'',
-    similarStore:[],
-    category:[]
+    storeOverview: '',
+    status: '',
+    similarStore: [],
+    category: []
   });
 
   const handleChange = (e) => {
     if (e.target.name === 'file') {
-        setValue({ ...value, [e.target.name]: e.target.files[0] });
+      setValue({ ...value, [e.target.name]: e.target.files[0] });
     } else if (e.target.name === 'category') {
-        // Handle MultiSelect for category
-        setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
+      // Handle MultiSelect for category
+      setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
     } else if (e.target.name === 'similarStore') {
-        // Handle MultiSelect for similarStore
-        setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
+      // Handle MultiSelect for similarStore
+      setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
     } else {
-        setValue({ ...value, [e.target.name]: e.target.value });
+      setValue({ ...value, [e.target.name]: e.target.value });
     }
-};
+  };
 
   const getData = async () => {
     const ans = await getStores();
@@ -51,7 +80,7 @@ const AddStoreModal = (props) => {
     console.log(ans1);
     setCategory(ans1.data);
   };
-  
+
   useEffect(() => {
     getData();
   }, []);
@@ -67,18 +96,18 @@ const AddStoreModal = (props) => {
     if (ans.status) {
       setValue({
         title: '',
-        seoTitle:'',
-        pageTitle:'',
-        invalidLink:'',
+        seoTitle: '',
+        pageTitle: '',
+        invalidLink: '',
         subHeading: '',
         desc: '',
         file: '',
         isFeatured: '',
         priority: '',
-        storeOverview:'',
-        status:'',
-        similarStore:[],
-        category:[]
+        storeOverview: '',
+        status: '',
+        similarStore: [],
+        category: []
       });
 
       props.notify('success', ans.message);
@@ -90,34 +119,6 @@ const AddStoreModal = (props) => {
     }
   };
 
-  // Quill options with added table module
-  const quillModules = {
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ color: [] }, { background: [] }],
-        [{ align: [] }],
-        ['link', 'image', 'video'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        ['blockquote', 'code-block'],
-        ['table'], // Added table option
-        ['clean']
-      ],
-    },
-  };
-
-  // Quill formats
-  const quillFormats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike',
-    'color', 'background',
-    'align',
-    'link', 'image', 'video',
-    'list', 'bullet',
-    'blockquote', 'code-block',
-    'table', // Added table format
-  ];
   return (
     <>
       <div id="addStoreModal" tabIndex="-1" className="fixed cus-modal top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -162,28 +163,29 @@ const AddStoreModal = (props) => {
                     </div>
                     <div>
                       <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Invalid Link</label>
-                      <input type="text" id="priority" name="invalidLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Invaild Link .." onChange={handleChange} value={value.invalidLink}  />
+                      <input type="text" id="priority" name="invalidLink" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Invaild Link .." onChange={handleChange} value={value.invalidLink} />
                     </div>
                     <div>
                       <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">Priority</label>
                       <input type="number" id="priority" name="priority" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter priority .." onChange={handleChange} value={value.priority} required />
                     </div>
-                    
+
                     <div>
                       <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Categories</label>
                       <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <MultiSelect value={value.category} options={
-                            category.map((e,index)=> {return {label:e.title,value:e._id}})
-                          } onChange={(data)=>{setValue({...value,['category']:data})}}/>
+                          category.map((e, index) => { return { label: e.title, value: e._id } })
+                        } onChange={(data) => { setValue({ ...value, ['category']: data }) }} />
                       </div>
                     </div>
                     <div>
                       <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Stores</label>
                       <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
                         <MultiSelect value={value.similarStore} options={
-                          stores.map((e,index)=> {return {label:e.title,value:e._id}})
-                        } onChange={(data) => {setValue({...value,['similarStore']:data}); console.log(data);
-                       }} />
+                          stores.map((e, index) => { return { label: e.title, value: e._id } })
+                        } onChange={(data) => {
+                          setValue({ ...value, ['similarStore']: data }); console.log(data);
+                        }} />
                       </div>
                     </div>
                     <div>
@@ -205,18 +207,18 @@ const AddStoreModal = (props) => {
                       <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Make Visible Website</label>
                       <select id="status" name="status" value={value.status} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option >Choose</option>
-                        <option  value="true">Visible</option>
+                        <option value="true">Visible</option>
                         <option value="false">Hide</option>
                       </select>
                     </div>
                   </div>
                   <div>
-                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Store Overview</label>
-                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
-                      <ReactQuill value={value.desc} theme="snow" modules={quillModules}
-                      formats={quillFormats} onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
-                    </div>
-<br/>
+                    <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Store Overview</label>
+                    {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
+                    <ReactQuill value={value.desc} theme="snow" modules={quillModules}
+                      formats={quillFormats} onChange={(text) => setValue({ ...value, desc: text })} ></ReactQuill>
+                  </div>
+                  <br />
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>
                   </div>

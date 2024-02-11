@@ -39,34 +39,62 @@ const StoreDetails = (props) => {
     priority: '',
     storeOverview: '',
     status: '',
-    similarStore:[],
-        category:[]
+    similarStore: [],
+    category: []
   });
+  const [storeOverview, setStoreOverview] = useState('');
+  const [loadFlag, setLoadFlag] = useState(true);
 
   const { id } = useParams();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getStore();
   }, [id]);
 
-  const getStore=async()=>{
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  const getStore = async () => {
+    setLoadFlag(true);
     const ans = await getStores(id);
-    console.log(ans);
-    setValue(ans.data[0]);
-  };
+    console.log(ans.data[0]);
+    if (value?.title === "") {
+      setValue({
+        title: ans.data[0]?.title,
+        seoTitle: ans.data[0]?.seoTitle,
+        pageTitle: ans.data[0]?.pageTitle,
+        invalidLink: ans.data[0]?.invalidLink,
+        subHeading: ans.data[0]?.subHeading,
+        desc: ans.data[0]?.desc,
+        file: ans.data[0]?.file,
+        isFeatured: ans.data[0]?.isFeatured,
+        priority: ans.data[0]?.priority,
+        // storeOverview: ans.data[0]?.storeOverview,
+        status: ans.data[0]?.status,
+        similarStore: ans.data[0]?.similarStore,
+        category: ans.data[0]?.category
+      });
 
-  useEffect(() => {
-    getData();
-  }, []);
+      setStoreOverview(ans.data[0].storeOverview);
+    }
 
-  const getData = async () => {
-    const ans = await getStores();
-    console.log(ans);
-    setstores(ans.data);
+    const ans2 = await getStores();
+    console.log(ans2);
+    setstores(ans2.data);
     const ans1 = await getCategorys();
     console.log(ans1);
     setCategory(ans1.data);
+    setLoadFlag(false);
+  };
+
+  // const getData = async () => {
+
+  // };
+
+  const qtc = (content, delta, source, editor) => {
+    setStoreOverview(editor.getHTML());
   };
 
   const handleChange = (e) => {
@@ -103,8 +131,8 @@ const StoreDetails = (props) => {
         priority: '',
         storeOverview: '',
         status: '',
-        similarStore:[],
-        category:[]
+        similarStore: [],
+        category: []
       });
 
       props.notify('success', ans.message);
@@ -121,7 +149,7 @@ const StoreDetails = (props) => {
     <>
       <div className="p-6 space-y-6">
         <form onSubmit={handleSubmit}>
-          <div className="bus-form">
+          {!loadFlag ? <div className="bus-form">
             <h4 className="text-xl text-center mb-4 font-bold">Enter Store details</h4>
             <div id="loadFlagModal" className='hidden flex justify-center'>
               <Spinner />
@@ -152,22 +180,24 @@ const StoreDetails = (props) => {
                 <input type="text" id="subHeading" name="subHeading" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter subHeading .." onChange={handleChange} value={value.subHeading} required />
               </div>
               <div>
-                      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Categories</label>
-                      <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <MultiSelect value={value.category} options={
-                            category.map((e,index)=> {return {label:e.title,value:e._id}})
-                          } onChange={(data)=>{setValue({...value,['category']:data})}}/>
-                      </div>
-                    </div>
-                    <div>
-                      <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Stores</label>
-                      <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
-                        <MultiSelect value={value.similarStore} options={
-                          stores.map((e,index)=> {return {label:e.title,value:e._id}})
-                        } onChange={(data) => {setValue({...value,['similarStore']:data}); console.log(data);
-                       }} />
-                      </div>
-                    </div>
+                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Categories</label>
+                <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <MultiSelect value={value.category} options={
+                    category.map((e, index) => { return { label: e.title, value: e._id } })
+                  } onChange={(data) => { setValue({ ...value, ['category']: data }) }} />
+                </div>
+              </div>
+             
+              <div>
+                <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Stores</label>
+                <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
+                  <MultiSelect value={value?.similarStore ? value?.similarStore : []} options={
+                    stores.map((e, index) => { return { label: e.title, value: e._id } })
+                  } onChange={(data) => {
+                    setValue({ ...value, ['similarStore']: data });
+                  }} />
+                </div>
+              </div>
 
               <div>
                 <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
@@ -201,17 +231,13 @@ const StoreDetails = (props) => {
             <div>
               <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Store Overview</label>
               {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
-              <ReactQuill value={value.storeOverview} theme="snow" onChange={(text) => {
-                console.log(text);
-                // setValue({ ...value, desc: text });
-                setValue({ ...value, storeOverview: text });
-              }} modules={{ toolbar: toolbarOptions }} />
+              <ReactQuill value={storeOverview} theme="snow" onChange={qtc} modules={{ toolbar: toolbarOptions }} />
             </div>
 
             <div className='text-right'>
               <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>
             </div>
-          </div>
+          </div> : 'Loading ..'}
         </form>
       </div>
     </>
@@ -219,3 +245,7 @@ const StoreDetails = (props) => {
 };
 
 export default StoreDetails;
+
+{/* <ReactQuill value={storeOverview} theme="snow" onChange={(text) => {
+                setValue({ ...value, storeOverview: text });
+              }} modules={{ toolbar: toolbarOptions }} /> */}

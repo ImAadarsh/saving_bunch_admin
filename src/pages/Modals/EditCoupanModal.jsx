@@ -4,7 +4,7 @@ import useMain from '../../hooks/useMain';
 import Spinner from '../../Util/Spinner';
 import ReactQuill from 'react-quill'
 import "react-quill/dist/quill.snow.css";
-import {MultiSelect} from "react-multi-select-component"
+import { MultiSelect } from "react-multi-select-component"
 
 // const makeid = (length) => {
 //   let result = '';
@@ -17,6 +17,35 @@ import {MultiSelect} from "react-multi-select-component"
 //   }
 //   return result;
 // };
+
+// Quill options with added table module
+const quillModules = {
+  toolbar: {
+    container: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ['link', 'image', 'video'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['blockquote', 'code-block'],
+      ['table'], // Added table option
+      ['clean']
+    ],
+  },
+};
+
+// Quill formats
+const quillFormats = [
+  'header',
+  'bold', 'italic', 'underline', 'strike',
+  'color', 'background',
+  'align',
+  'link', 'image', 'video',
+  'list', 'bullet',
+  'blockquote', 'code-block',
+  'table', // Added table format
+];
 
 const EditCoupanModal = (props) => {
   const { updateCoupan, getStores, getCategorys } = useMain();
@@ -40,7 +69,7 @@ const EditCoupanModal = (props) => {
 
   useEffect(() => {
     if (props.data1 && Object.keys(props.data1).length > 0) {
-      setValue({...props.data1, category: props.data1.category._id, store: props.data1.store._id});
+      setValue({ ...props.data1, category: props.data1.category._id, store: props.data1.store._id });
     }
   }, [props.data1]);
 
@@ -59,13 +88,18 @@ const EditCoupanModal = (props) => {
 
   const handleChange = (e) => {
     if (e.target.name === 'category') {
-     // Handle MultiSelect for category
-     setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
- }
-   else {
-     setValue({ ...value, [e.target.name]: e.target.value });
-   }
- };
+      // Handle MultiSelect for category
+      setValue({ ...value, [e.target.name]: e.target.value.map(option => option.value) });
+    }
+    else {
+      setValue({ ...value, [e.target.name]: e.target.value });
+    }
+  };
+
+  const qte = (content, delta, source, editor) => {
+    // setStoreOverview(editor.getHTML());
+    setValue({...value, desc: editor.getHTML()});
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,34 +131,7 @@ const EditCoupanModal = (props) => {
       props.notify('error', ans.message);
     }
   };
-    // Quill options with added table module
-    const quillModules = {
-      toolbar: {
-        container: [
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ color: [] }, { background: [] }],
-          [{ align: [] }],
-          ['link', 'image', 'video'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['blockquote', 'code-block'],
-          ['table'], // Added table option
-          ['clean']
-        ],
-      },
-    };
-  
-    // Quill formats
-    const quillFormats = [
-      'header',
-      'bold', 'italic', 'underline', 'strike',
-      'color', 'background',
-      'align',
-      'link', 'image', 'video',
-      'list', 'bullet',
-      'blockquote', 'code-block',
-      'table', // Added table format
-    ];
+
 
   return (
     <>
@@ -178,16 +185,16 @@ const EditCoupanModal = (props) => {
                     <div>
                       <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
                       <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <MultiSelect value={value.category} options={
-                            category.map((e,index)=> {return {label:e.name,value:e._id}})
-                          } onChange={(data)=>{setValue({...value,['category']:data})}}/>
+                        <MultiSelect value={value.category ? value.category : []} options={
+                          category.map((e, index) => { return { label: e.name, value: e._id } })
+                        } onChange={(data) => { setValue({ ...value, ['category']: data }) }} />
                       </div>
                     </div>
                     <div>
                       <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a store</label>
                       <select id="store" name="store" value={value.store} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose a store</option>
-                        {stores.map((e,index)=>{
+                        {stores.map((e, index) => {
                           return <option key={index} value={e._id}>{e.title}</option>
                         })}
                       </select>
@@ -223,14 +230,14 @@ const EditCoupanModal = (props) => {
                         <option value="false">Unavailiable</option>
                       </select>
                     </div>
-              
+
                   </div>
                   <div>
-                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
-                      <ReactQuill  modules={quillModules}
-      formats={quillFormats} value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
-                    </div>
+                    <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                    {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
+                    <ReactQuill modules={quillModules}
+                      formats={quillFormats} value={value.desc} theme="snow" onChange={qte} ></ReactQuill>
+                  </div>
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>
                   </div>

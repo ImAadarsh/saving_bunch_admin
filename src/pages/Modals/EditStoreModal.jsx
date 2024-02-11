@@ -66,9 +66,11 @@ const EditStoreModal = (props) => {
     file: '',
     isFeatured: '',
     priority: '',
-    storeOverview: '',
+    // storeOverview: '',
     status: ''
   });
+
+  const [storeOverview, setStoreOverview] = useState('');
 
   useEffect(() => {
     console.log(props.data1);
