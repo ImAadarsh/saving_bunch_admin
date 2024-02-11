@@ -7,7 +7,6 @@ import {MultiSelect} from "react-multi-select-component"
 import 'react-quill/dist/quill.snow.css'
 import 'quill/dist/quill.core.css'; // Import the Quill core styles
 
-
 const AddStoreModal = (props) => {
   const { postStore,  getStores, getCategorys  } = useMain();
 

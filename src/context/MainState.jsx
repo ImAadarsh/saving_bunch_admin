@@ -205,9 +205,15 @@ const MainState = (props) => {
         }
     };
 
-    const getStores = async (query) => {
+    const getStores = async (id) => {
         try {
-            let data = await getRequest(`${baseUrl}/store/getStores`, false, props);
+            let str="";
+            if(id && id!=="")
+            {
+                str+=`?id=${id}`;
+            }
+         
+            let data = await getRequest(`${baseUrl}/store/getStores${str}`, false, props);
             return data;
         } catch (error) {
             console.log(error);

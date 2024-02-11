@@ -5,6 +5,35 @@ import Spinner from '../../Util/Spinner';
 import ReactQuill from 'react-quill'
 import "react-quill/dist/quill.snow.css";
 
+// Quill options with added table module
+const quillModules = {
+  toolbar: {
+    container: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ['link', 'image', 'video'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['blockquote', 'code-block'],
+      ['table'], // Added table option
+      ['clean']
+    ],
+  },
+};
+
+// Quill formats
+const quillFormats = [
+  'header',
+  'bold', 'italic', 'underline', 'strike',
+  'color', 'background',
+  'align',
+  'link', 'image', 'video',
+  'list', 'bullet',
+  'blockquote', 'code-block',
+  'table', // Added table format
+];
+
 const AddCategoryModal = (props) => {
   const { updateCategory } = useMain();
 
@@ -13,25 +42,24 @@ const AddCategoryModal = (props) => {
     desc: '',
     file: '',
     priority: '',
-    seoTitle:'',
-    pageTitle:'',
-    name:'',
+    seoTitle: '',
+    pageTitle: '',
+    name: '',
     status: ''
   });
 
-  useEffect(()=>{
-    if(props.data1 && Object.keys(props.data1).length>0)
-    {
+  useEffect(() => {
+    if (props.data1 && Object.keys(props.data1).length > 0) {
+      console.log(props.data1);
       setValue(props.data1);
     }
-  },[props.data1]);
+  }, [props.data1]);
 
   const handleChange = (e) => {
-    if(e.target.name==='file')
-    {
+    if (e.target.name === 'file') {
       setValue({ ...value, [e.target.name]: e.target.files[0] });
     }
-    else{
+    else {
       setValue({ ...value, [e.target.name]: e.target.value });
     }
   };
@@ -45,13 +73,13 @@ const AddCategoryModal = (props) => {
     if (ans.status) {
       setValue({
         title: '',
-    desc: '',
-    file: '',
-    priority: '',
-    seoTitle:'',
-    pageTitle:'',
-    name:'',
-    status: ''
+        desc: '',
+        file: '',
+        priority: '',
+        seoTitle: '',
+        pageTitle: '',
+        name: '',
+        status: ''
       });
 
       props.notify('success', ans.message);
@@ -62,34 +90,7 @@ const AddCategoryModal = (props) => {
       props.notify('error', ans.message);
     }
   };
-  // Quill options with added table module
-  const quillModules = {
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ color: [] }, { background: [] }],
-        [{ align: [] }],
-        ['link', 'image', 'video'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        ['blockquote', 'code-block'],
-        ['table'], // Added table option
-        ['clean']
-      ],
-    },
-  };
 
-  // Quill formats
-  const quillFormats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike',
-    'color', 'background',
-    'align',
-    'link', 'image', 'video',
-    'list', 'bullet',
-    'blockquote', 'code-block',
-    'table', // Added table format
-  ];
   return (
     <>
       <div id="editCategoryModal" tabIndex="-1" className="fixed cus-modal top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -97,7 +98,7 @@ const AddCategoryModal = (props) => {
           <div className="relative bg-white rounded-lg shadow ">
             <div className="flex items-center justify-between p-5 border-b rounded-t ">
               <h3 className="text-xl font-medium text-gray-900 ">
-                Update category 
+                Update category
               </h3>
               <button type="button" onClick={() => {
                 document.getElementById('editCategoryModal').classList.toggle('hidden');
@@ -114,7 +115,7 @@ const AddCategoryModal = (props) => {
                   <div id="loadFlagModal" className='hidden flex justify-center'>
                     <Spinner />
                   </div>
-                  
+
                   <div className="grid gap-6 px-0.5 py-0.5 mb-6 md:grid-cols-2">
                     <div>
                       <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
@@ -143,18 +144,18 @@ const AddCategoryModal = (props) => {
                         <option value="false">Unavailiable</option>
                       </select>
                     </div>
-                   
+
                     <div>
                       <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 ">file</label>
                       <input type="file" id="file" name="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter file .." onChange={handleChange} />
                     </div>
                   </div>
                   <div>
-                      <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                      {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
-                      <ReactQuill  modules={quillModules}
-      formats={quillFormats} value={value.desc} theme="snow" onChange={(text) => setValue({...value,desc:text})} ></ReactQuill>
-                    </div>
+                    <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                    {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
+                    <ReactQuill modules={quillModules}
+                      formats={quillFormats} value={value.desc} theme="snow" onChange={(text) => setValue({ ...value, desc: text })} ></ReactQuill>
+                  </div>
 
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>

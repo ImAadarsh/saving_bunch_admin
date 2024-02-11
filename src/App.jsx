@@ -14,6 +14,7 @@ import SignIn from './pages/Authentication/SignIn';
 import Submission from './pages/Submission/Submission';
 import ExBanner from './pages/ExBanner/ExBanner';
 import Deals from './pages/Deals/Deals';
+import StoreDetails from './pages/Store/StoreDetails';
 
 // import Blog from './pages/Email/Email';
 // import SignIn from './pages/Authentication/SignIn'
@@ -80,6 +81,7 @@ const App = () => {
               <Route path='/store' element={<Store notify={notify} />} />
               <Route path='/deals' element={<Deals notify={notify} />} />
               <Route path='/submissions' element={<Submission notify={notify} />} />
+              <Route path='/store-details/:id' element={<StoreDetails notify={notify} />} />
               {/* <Route path='/users' element={<User notify={notify} />} /> */}
             </Route>
 
