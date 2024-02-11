@@ -38,7 +38,9 @@ const StoreDetails = (props) => {
     isFeatured: '',
     priority: '',
     storeOverview: '',
-    status: ''
+    status: '',
+    similarStore:[],
+        category:[]
   });
 
   const { id } = useParams();
@@ -100,7 +102,9 @@ const StoreDetails = (props) => {
         isFeatured: '',
         priority: '',
         storeOverview: '',
-        status: ''
+        status: '',
+        similarStore:[],
+        category:[]
       });
 
       props.notify('success', ans.message);
@@ -133,7 +137,6 @@ const StoreDetails = (props) => {
                 <label htmlFor="seoTitle" className="block mb-2 text-sm font-medium text-gray-900 ">Seo Title</label>
                 <input type="text" id="seoTitle" name="seoTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter seoTitle .." onChange={handleChange} value={value.seoTitle} required />
               </div>
-
               <div>
                 <label htmlFor="pageTitle" className="block mb-2 text-sm font-medium text-gray-900 ">Page Title</label>
                 <input type="text" id="pageTitle" name="pageTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter pageTitle .." onChange={handleChange} value={value.pageTitle} required />
@@ -148,6 +151,23 @@ const StoreDetails = (props) => {
                 <label htmlFor="subHeading" className="block mb-2 text-sm font-medium text-gray-900 ">sub Heading</label>
                 <input type="text" id="subHeading" name="subHeading" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter subHeading .." onChange={handleChange} value={value.subHeading} required />
               </div>
+              <div>
+                      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Categories</label>
+                      <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <MultiSelect value={value.category} options={
+                            category.map((e,index)=> {return {label:e.title,value:e._id}})
+                          } onChange={(data)=>{setValue({...value,['category']:data})}}/>
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Stores</label>
+                      <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
+                        <MultiSelect value={value.similarStore} options={
+                          stores.map((e,index)=> {return {label:e.title,value:e._id}})
+                        } onChange={(data) => {setValue({...value,['similarStore']:data}); console.log(data);
+                       }} />
+                      </div>
+                    </div>
 
               <div>
                 <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>

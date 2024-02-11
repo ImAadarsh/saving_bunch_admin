@@ -252,9 +252,17 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateStore = async ({ _id, title, seoTitle, pageTitle,invalidLink, storeOverview, file, subHeading, desc, isFeatured, priority }) => {
+    const updateStore = async ({ _id, title, seoTitle, pageTitle,invalidLink,similarStore, storeOverview,category, file, subHeading, desc, isFeatured, priority }) => {
         try {
             let formdata = new FormData();
+            let modifiedStore = [];
+            let modifiedCategory = [];
+            for(let i=0;i<similarStore.length;++i){
+                modifiedStore.push(similarStore[i].value);
+            }
+            for(let i=0;i<category.length;++i){
+                modifiedCategory.push(category[i].value);
+            }
             formdata.append('title', title);
             formdata.append('subHeading', subHeading);
             formdata.append('file', file);
@@ -266,6 +274,8 @@ const MainState = (props) => {
             formdata.append('pageTitle', pageTitle);
             formdata.append('invalidLink', invalidLink);
             formdata.append('storeOverview', storeOverview);
+            formdata.append('similarStore', JSON.stringify(modifiedStore))
+            formdata.append('category',JSON.stringify(modifiedCategory));
 
             let data = await putRequest(`${baseUrl}/store/updateStore/${_id}`, formdata, false, props, true);
             return data;
