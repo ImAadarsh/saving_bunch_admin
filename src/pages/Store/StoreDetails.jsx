@@ -74,8 +74,8 @@ const StoreDetails = (props) => {
         _id: ans.data[0]?._id,
         // storeOverview: ans.data[0]?.storeOverview,
         status: '',
-        similarStore: [],
-        category: []
+        similarStore: ans.data[0].similarStores.map(x=>{return {label: x.title, value: x._id}}),
+        category: ans.data[0].category.map(x=>{return {label: x.title, value: x._id}})
       });
 
       setStoreOverview(ans.data[0].storeOverview);
@@ -100,6 +100,7 @@ const StoreDetails = (props) => {
   };
 
   const handleChange = (e) => {
+    console.log(e.target);
     if (e.target.name === 'file') {
       setValue({ ...value, [e.target.name]: e.target.files[0] });
     } else if (e.target.name === 'category') {

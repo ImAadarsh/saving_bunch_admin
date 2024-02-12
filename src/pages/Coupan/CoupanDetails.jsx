@@ -79,7 +79,8 @@ const CoupanDetail = (props) => {
     is_popular: '',
     is_exclusive: '',
     priority: '',
-    subText: ''
+    subText: '',
+    sideLine: '',
   });
   const [loadFlag, setLoadFlag] = useState(true);
   const [desc, setDesc] = useState("");
@@ -127,9 +128,10 @@ const CoupanDetail = (props) => {
         is_popular: ans.data[0].is_popular,
         is_exclusive: ans.data[0].is_exclusive,
         priority: ans.data[0].priority,
-        category: ans.data[0].category._id,
+        category: ans.data[0].category.map(x=>{return {label: x.title, value: x._id}}),
         store: ans.data[0].store._id,
-        subText: ans.data[0].subText
+        subText: ans.data[0].subText,
+        sideLine: ans.data[0].sideLine,
       });
 
       setDesc(ans.data[0].desc);
@@ -188,7 +190,8 @@ const CoupanDetail = (props) => {
         is_popular: '',
         is_exclusive: '',
         priority: '',
-        subText: ''
+        subText: '',
+        sideLine: '',
       });
       setDesc("");
 

@@ -6,7 +6,6 @@ import ReactQuill from 'react-quill';
 import {MultiSelect} from "react-multi-select-component"
 import 'react-quill/dist/quill.snow.css'
 
-
 const AddCoupanModal = (props) => {
   const { postCoupan, getStores, getCategorys } = useMain();
   const [stores, setstores] = useState([]);
