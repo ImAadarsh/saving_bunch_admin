@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { deleteRequest, getRequest, postRequest, putRequest } from '../Api/Api';
 import MainContext from './MainContext';
 
-const baseUrl = 'https://savingbunch.endeavourdigital.in';
+const baseUrl = 'http://127.0.0.1:5011';
 
 const MainState = (props) => {
     const getBanners = async (query) => {
@@ -142,8 +142,12 @@ const MainState = (props) => {
     const updateCoupan = async ({ _id, store, category,status, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
-            // formdata.append('store', JSON.stringify(store));
-            // formdata.append('category', JSON.stringify(category));
+            let modifiedCategory = [];
+            for(let i=0;i<category.length;++i){
+                modifiedCategory.push(category[i].value);
+            }
+            formdata.append('store', JSON.stringify(store));
+            formdata.append('category', JSON.stringify(modifiedCategory));
             formdata.append('title', title);
             formdata.append('coupanCode', coupanCode);
             formdata.append('link', link);
@@ -252,7 +256,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateStore = async ({ _id, title, seoTitle, pageTitle,invalidLink,similarStore, storeOverview,category, file, subHeading, desc, isFeatured, priority }) => {
+    const updateStore = async ({ _id, title, seoTitle, pageTitle,invalidLink,similarStore, storeOverview,category, file, subHeading, desc, isFeatured, priority, status }) => {
         try {
             let formdata = new FormData();
             let modifiedStore = [];

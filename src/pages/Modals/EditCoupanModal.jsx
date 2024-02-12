@@ -53,7 +53,7 @@ const EditCoupanModal = (props) => {
   const [category, setCategory] = useState([]);
   const [value, setValue] = useState({
     store: '',
-    category: '',
+    category: [],
     title: '',
     coupanCode: '',
     link: '',
@@ -62,7 +62,6 @@ const EditCoupanModal = (props) => {
     is_coupan: '',
     is_popular: '',
     is_exclusive: '',
-    file: '',
     priority: ''
   });
   const [loadFlag, setLoadFlag] = useState(true);
@@ -104,13 +103,13 @@ const EditCoupanModal = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-    const ans = await updateCoupan({ ...value, category: category.find(x => x._id === value.category), store: stores.find(x => x._id === value.store) });
+console.log(value);
+    const ans = await updateCoupan(value);
     console.log(ans);
     if (ans.status) {
       setValue({
         store: '',
-        category: '',
+        category: [],
         title: '',
         coupanCode: '',
         link: '',
@@ -119,7 +118,6 @@ const EditCoupanModal = (props) => {
         is_coupan: '',
         is_popular: '',
         is_exclusive: '',
-        file: '',
         priority: ''
       });
 
@@ -177,10 +175,6 @@ const EditCoupanModal = (props) => {
                     <div>
                       <label htmlFor="expiryDate" className="block mb-2 text-sm font-medium text-gray-900 ">Expiry Date</label>
                       <input type="date" id="expiryDate" name="expiryDate" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Expiry Date .." onChange={handleChange} value={value.expiryDate} required />
-                    </div>
-                    <div>
-                      <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 ">file</label>
-                      <input type="file" id="file" name="file" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter file .." onChange={handleChange} />
                     </div>
                     <div>
                       <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>

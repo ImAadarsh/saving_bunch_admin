@@ -71,10 +71,11 @@ const StoreDetails = (props) => {
         file: ans.data[0]?.file,
         isFeatured: ans.data[0]?.isFeatured,
         priority: ans.data[0]?.priority,
+        _id: ans.data[0]?._id,
         // storeOverview: ans.data[0]?.storeOverview,
-        status: ans.data[0]?.status,
-        similarStore: ans.data[0]?.similarStore,
-        category: ans.data[0]?.category
+        status: '',
+        similarStore: [],
+        category: []
       });
 
       setStoreOverview(ans.data[0].storeOverview);
@@ -95,6 +96,7 @@ const StoreDetails = (props) => {
 
   const qtc = (content, delta, source, editor) => {
     setStoreOverview(editor.getHTML());
+    setValue({ ...value, storeOverview: editor.getHTML()});
   };
 
   const handleChange = (e) => {
@@ -118,7 +120,7 @@ const StoreDetails = (props) => {
     const ans = await updateStore(value);
     console.log(ans);
 
-    if (ans.status) {
+    if (ans.message) {
       setValue({
         title: '',
         seoTitle: '',
@@ -189,15 +191,15 @@ const StoreDetails = (props) => {
               </div>
              
               <div>
-                <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Stores</label>
-                <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
-                  <MultiSelect value={value?.similarStore ? value?.similarStore : []} options={
-                    stores.map((e, index) => { return { label: e.title, value: e._id } })
-                  } onChange={(data) => {
-                    setValue({ ...value, ['similarStore']: data });
-                  }} />
-                </div>
-              </div>
+              <label htmlFor="store" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Stores</label>
+                      <div className='className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'>
+                        <MultiSelect value={value.similarStore} options={
+                          stores.map((e, index) => { return { label: e.title, value: e._id } })
+                        } onChange={(data) => {
+                          setValue({ ...value, ['similarStore']: data }); console.log(data);
+                        }} />
+                      </div>
+                    </div>
 
               <div>
                 <label htmlFor="priority" className="block mb-2 text-sm font-medium text-gray-900 ">priority</label>
@@ -205,7 +207,7 @@ const StoreDetails = (props) => {
               </div>
               <div>
                 <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.de} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea>
+                <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea>
               </div>
               <div>
                 <label htmlFor="file" className="block mb-2 text-sm font-medium text-gray-900 ">file</label>
@@ -231,7 +233,7 @@ const StoreDetails = (props) => {
             <div>
               <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Store Overview</label>
               {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
-              <ReactQuill value={storeOverview} theme="snow" onChange={qtc} modules={{ toolbar: toolbarOptions }} />
+              <ReactQuill name="storeOverview" value={storeOverview} theme="snow" onChange={qtc} modules={{ toolbar: toolbarOptions }} />
             </div>
 
             <div className='text-right'>
