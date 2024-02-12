@@ -142,12 +142,19 @@ const MainState = (props) => {
     const updateCoupan = async ({ _id, store, category,status, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, desc, subText, sideLine, priority }) => {
         try {
             let formdata = new FormData();
-            let modifiedCategory = [];
-            for(let i=0;i<category.length;++i){
-                modifiedCategory.push(category[i].value);
+            if(category){
+                let modifiedCategory = [];
+                for(let i=0;i<category.length;++i){
+                    modifiedCategory.push(category[i].value);
+                }
+                formdata.append('category', JSON.stringify(modifiedCategory));
             }
-            formdata.append('store', JSON.stringify(store));
-            formdata.append('category', JSON.stringify(modifiedCategory));
+            if(store){
+                formdata.append('store', JSON.stringify(store));
+            }
+            if(status){
+                formdata.append('status', status);
+            }
             formdata.append('title', title);
             formdata.append('coupanCode', coupanCode);
             formdata.append('link', link);
@@ -156,7 +163,6 @@ const MainState = (props) => {
             formdata.append('is_popular', is_popular);
             formdata.append('is_exclusive', is_exclusive);
             formdata.append('desc', desc);
-            formdata.append('status', status);
             formdata.append('subText', subText);
             formdata.append('sideLine', sideLine);
             formdata.append('priority', priority);
