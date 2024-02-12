@@ -166,7 +166,7 @@ console.log(value);
                     </div>
                     <div>
                       <label htmlFor="coupanCode" className="block mb-2 text-sm font-medium text-gray-900 ">Coupon Code</label>
-                      <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode} required />
+                      <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode}  />
                     </div>
                     <div>
                       <label htmlFor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Link</label>
