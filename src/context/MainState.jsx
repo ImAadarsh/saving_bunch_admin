@@ -104,9 +104,15 @@ const MainState = (props) => {
         }
     };
 
-    const getCoupans = async (query) => {
+    const getCoupans = async (id) => {
         try {
-            let data = await getRequest(`${baseUrl}/coupan/getCoupans`, false, props);
+            let str="";
+            if(id && id!=="")
+            {
+                str+=`?id=${id}`;
+            }
+
+            let data = await getRequest(`${baseUrl}/coupan/getCoupans${str}`, false, props);
             return data;
         } catch (error) {
             console.log(error);

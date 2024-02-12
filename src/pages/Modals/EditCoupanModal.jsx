@@ -19,33 +19,48 @@ import { MultiSelect } from "react-multi-select-component"
 // };
 
 // Quill options with added table module
-const quillModules = {
-  toolbar: {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      ['link', 'image', 'video'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['blockquote', 'code-block'],
-      ['table'], // Added table option
-      ['clean']
-    ],
-  },
-};
+// const quillModules = {
+//   toolbar: {
+//     container: [
+//       [{ header: [1, 2, 3, 4, 5, 6, false] }],
+//       ['bold', 'italic', 'underline', 'strike'],
+//       [{ color: [] }, { background: [] }],
+//       [{ align: [] }],
+//       ['link', 'image', 'video'],
+//       [{ list: 'ordered' }, { list: 'bullet' }],
+//       ['blockquote', 'code-block'],
+//       ['table'], // Added table option
+//       ['clean']
+//     ],
+//   },
+// };
 
-// Quill formats
-const quillFormats = [
-  'header',
-  'bold', 'italic', 'underline', 'strike',
-  'color', 'background',
-  'align',
-  'link', 'image', 'video',
-  'list', 'bullet',
-  'blockquote', 'code-block',
-  'table', // Added table format
-];
+// // Quill formats
+// const quillFormats = [
+//   'header',
+//   'bold', 'italic', 'underline', 'strike',
+//   'color', 'background',
+//   'align',
+//   'link', 'image', 'video',
+//   'list', 'bullet',
+//   'blockquote', 'code-block',
+//   'table', // Added table format
+// ];
+
+var toolbarOptions = {
+  container: [
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    [{ 'script': 'sub' }, { 'script': 'super' }],
+    [{ 'indent': '-1' }, { 'indent': '+1' }],
+    [{ 'direction': 'rtl' }],
+    ['link', 'image'],
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    [{ 'align': [] }],
+    ['clean']
+  ]
+};
 
 const EditCoupanModal = (props) => {
   const { updateCoupan, getStores, getCategorys } = useMain();
@@ -65,10 +80,27 @@ const EditCoupanModal = (props) => {
     priority: ''
   });
   const [loadFlag, setLoadFlag] = useState(true);
+  const [desc, setDesc] = useState("");
 
   useEffect(() => {
     if (props.data1 && Object.keys(props.data1).length > 0) {
-      setValue({ ...props.data1, category: props.data1.category._id, store: props.data1.store._id });
+      // setValue({ ...props.data1, category: props.data1.category._id, store: props.data1.store._id });
+      if (value?.title === "") {
+        setValue({
+          title: props.data1.title,
+          coupanCode: props.data1.coupanCode,
+          link: props.data1.link,
+          expiryDate: props.data1.expiryDate,
+          is_coupan: props.data1.is_coupan,
+          is_popular: props.data1.is_popular,
+          is_exclusive: props.data1.is_exclusive,
+          priority: props.data1.priority,
+          category: props.data1.category._id,
+          store: props.data1.store._id
+        });
+
+        setDesc(props.data1.desc);
+      }
     }
   }, [props.data1]);
 
@@ -97,15 +129,16 @@ const EditCoupanModal = (props) => {
 
   const qte = (content, delta, source, editor) => {
     // setStoreOverview(editor.getHTML());
-    setValue({...value, desc: editor.getHTML()});
+    setValue({ ...value, desc: editor.getHTML() });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-console.log(value);
-    const ans = await updateCoupan(value);
+    console.log({ ...value, desc });
+    const ans = await updateCoupan({ ...value, desc });
     console.log(ans);
+
     if (ans.status) {
       setValue({
         store: '',
@@ -120,6 +153,7 @@ console.log(value);
         is_exclusive: '',
         priority: ''
       });
+      setDesc("");
 
       props.notify('success', ans.message);
       props.setRefreshFlag(!props.refreshFlag);
@@ -129,7 +163,6 @@ console.log(value);
       props.notify('error', ans.message);
     }
   };
-
 
   return (
     <>
@@ -166,7 +199,7 @@ console.log(value);
                     </div>
                     <div>
                       <label htmlFor="coupanCode" className="block mb-2 text-sm font-medium text-gray-900 ">Coupon Code</label>
-                      <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode}  />
+                      <input type="text" id="coupanCode" name="coupanCode" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter Code .." onChange={handleChange} value={value.coupanCode} />
                     </div>
                     <div>
                       <label htmlFor="subText" className="block mb-2 text-sm font-medium text-gray-900 ">Sub Text</label>
@@ -232,13 +265,11 @@ console.log(value);
                         <option value="false">Unavailiable</option>
                       </select>
                     </div>
-
                   </div>
                   <div>
                     <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
                     {/* <textarea id="desc" rows="4" name='desc' onChange={handleChange} value={value.desc} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write here..."></textarea> */}
-                    <ReactQuill modules={quillModules}
-                      formats={quillFormats} value={value.desc} theme="snow" onChange={qte} ></ReactQuill>
+                    <ReactQuill modules={{ toolbar: toolbarOptions }} value={desc} theme="snow" onChange={qte} ></ReactQuill>
                   </div>
                   <div className='text-right'>
                     <button type="submit" className="text-white btn-hover bg-blue-600 focus:ring-4 focus:outline-none focus:ring-purple-200 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center "><span>Submit</span></button>
