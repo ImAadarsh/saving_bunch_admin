@@ -135,6 +135,7 @@ const MainState = (props) => {
             formdata.append('is_popular', is_popular);
             formdata.append('is_exclusive', is_exclusive);
             formdata.append('desc', desc);
+            formdata.append('status', true);
             formdata.append('subText', subText);
             formdata.append('sideLine', sideLine);
             formdata.append('priority', priority);
@@ -145,7 +146,7 @@ const MainState = (props) => {
             console.log(error);
         }
     };
-    const updateCoupan = async ({ _id, store, category,status, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, desc, subText, sideLine, priority }) => {
+    const updateCoupan = async ({ _id, store, category, title, coupanCode, link, expiryDate, is_coupan, is_popular, is_exclusive, desc, subText, sideLine, priority,visible }) => {
         try {
             let formdata = new FormData();
             if(category){
@@ -158,8 +159,9 @@ const MainState = (props) => {
             if(store){
                 formdata.append('store', JSON.stringify(store));
             }
-            if(status){
-                formdata.append('status', status);
+            
+            if(visible){
+                formdata.append('status',visible);
             }
             formdata.append('title', title);
             formdata.append('coupanCode', coupanCode);
