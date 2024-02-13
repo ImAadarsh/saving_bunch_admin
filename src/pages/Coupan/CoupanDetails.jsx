@@ -68,6 +68,7 @@ const CoupanDetail = (props) => {
   const [stores, setstores] = useState([]);
   const [category, setCategory] = useState([]);
   const [value, setValue] = useState({
+
     store: '',
     category: [],
     title: '',
@@ -132,6 +133,7 @@ const CoupanDetail = (props) => {
         store: ans.data[0].store._id,
         subText: ans.data[0].subText,
         sideLine: ans.data[0].sideLine,
+        _id: ans.data[0]._id
       });
 
       setDesc(ans.data[0].desc);
