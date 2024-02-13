@@ -8,6 +8,8 @@ import DeleteModal from '../../Util/DeleteModal';
 import useMain from '../../hooks/useMain';
 import EditCoupanModal from '../Modals/EditCoupanModal';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
+
 
 const Coupan = ({ notify }) => {
   const { getCoupans, getStores, getCategorys, deleteCoupan } = useMain();
@@ -31,7 +33,7 @@ const Coupan = ({ notify }) => {
 
   const columns = [
     {
-      name: 'title',
+      name: 'Title',
       selector: row => row.title,
     },
     {
@@ -41,6 +43,18 @@ const Coupan = ({ notify }) => {
     {
       name: 'Validity',
       selector: row => row.expiryDate,
+    },
+    {
+      name: 'Store',
+      selector: row => row.store.title,
+    },
+    {
+      name: 'Created At',
+      selector: (row) => format(new Date(row.createdAt), 'yyyy-MM-dd HH:MM'),
+    },
+    {
+      name: 'Updated At',
+      selector: (row) => format(new Date(row.updatedAt), 'yyyy/MM/dd HH:MM'),
     },
     {
       name: 'Active',
