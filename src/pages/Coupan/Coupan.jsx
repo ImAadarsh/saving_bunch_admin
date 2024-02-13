@@ -46,7 +46,8 @@ const Coupan = ({ notify }) => {
     },
     {
       name: 'Store',
-      selector: row => row.store.title,
+      selector: (row) => row?.store?.title || 'DELETED'
+
     },
     {
       name: 'Created At',
