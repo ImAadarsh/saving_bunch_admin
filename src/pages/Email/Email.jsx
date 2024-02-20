@@ -27,6 +27,7 @@ const Email = ({ notify }) => {
     {
       name: 'Email',
       selector: row => row.email,
+      sortable: true
     }
   ];
 

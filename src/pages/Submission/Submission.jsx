@@ -24,30 +24,37 @@ const Submission = ({ notify }) => {
     {
       name: 'Brand Name',
       selector: row => row.brandName,
+      sortable: true
     },
     {
       name: 'Store Website',
       selector: row => row.storeWebsite,
+      sortable: true
     },
     {
       name: 'Full Name',
       selector: row => row.fullName,
+      sortable: true
     },
     {
       name: 'Office Number',
       selector: row => row.officeNumber,
+      sortable: true
     },
     {
       name: 'Mobile Number',
       selector: row => row.mobileNumber,
+      sortable: true
     },
     {
       name: 'Email Address',
       selector: row => row.emailAddress,
+      sortable: true
     },
     {
       name: 'Comments',
       selector: row => row.comments,
+      sortable: true
     },
 
     // {

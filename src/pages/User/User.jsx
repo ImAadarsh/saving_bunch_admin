@@ -22,15 +22,18 @@ const User = () => {
         {
             name: 'Name',
             selector: row => row.name,
+            sortable: true
         },
         {
             name: 'Email',
             selector: row => row.email,
+            sortable: true
         },
         {
             name: 'Mobile',
             selector: row => row.mobile,
-            wrap: true
+            wrap: true,
+            sortable: true
         },
 
         // {

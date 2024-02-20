@@ -31,30 +31,37 @@ const Deals = ({ notify }) => {
     {
       name: 'Text',
       selector: row => row.text,
+      sortable: true
     },
     {
       name: 'Sub Text',
-      selector: row => row.subText
+      selector: row => row.subText,
+      sortable: true
     },
     {
       name: 'Button Link',
-      selector: row => row.buttonLink
+      selector: row => row.buttonLink,
+      sortable: true
     },
     {
       name: 'Store',
-      selector: row => stores.find(x=>x._id===row.storeId)?.title
+      selector: row => stores.find(x=>x._id===row.storeId)?.title,
+      sortable: true
     },
     {
       name: 'Is Exclusive',
-      selector: row => row.isExclusive===true ? "Yes" : "No"
+      selector: row => row.isExclusive===true ? "Yes" : "No",
+      sortable: true
     },
     {
       name: 'Store Image',
-      selector: row => <img width={70} src={row?.storeImg} />
+      selector: row => <img width={70} src={row?.storeImg} />,
+      sortable: true
     },
     {
       name: 'Image',
-      selector: row => <img width={70} src={row?.imgLink} />
+      selector: row => <img width={70} src={row?.imgLink} />,
+      sortable: true
     },
     {
       name: "Actions",

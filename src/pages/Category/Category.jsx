@@ -26,10 +26,12 @@ const Category = ({ notify }) => {
     {
       name: 'Name',
       selector: row => row.name,
+      sortable: true
     },
     {
       name: 'Title',
       selector: row => row.title,
+      sortable: true
     },
     
     {

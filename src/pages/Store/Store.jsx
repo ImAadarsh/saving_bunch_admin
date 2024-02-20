@@ -29,14 +29,17 @@ const Store = ({ notify }) => {
     {
       name: 'Name',
       selector: row => row.title,
+      sortable: true
     },
     {
       name: 'Title',
-      selector: row => row.subHeading
+      selector: row => row.subHeading,
+      sortable: true
     },
     {
       name: 'Priority',
-      selector: row => row.priority
+      selector: row => row.priority,
+      sortable: true
     },
     {
       name: 'Status',

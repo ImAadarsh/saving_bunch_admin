@@ -26,10 +26,12 @@ const ExBanner = ({ notify }) => {
     {
       name: 'Sequence',
       selector: row => row.sequence,
+      sortable: true
     },
     {
       name: 'Image',
       selector: row => <img width={60} src={row.imgLink} />,
+      sortable: true
     },
     {
       name: "Actions",
