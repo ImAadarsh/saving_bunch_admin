@@ -181,7 +181,7 @@ const Banner = ({ notify }) => {
 
         <DataTable
           columns={columns}
-          data={data}
+          data={filteredItems}
           striped={true}
           title="Banner"
           pagination

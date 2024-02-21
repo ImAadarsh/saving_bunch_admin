@@ -8,6 +8,52 @@ import EditStoreModal from '../Modals/EditStoreModal';
 import DeleteModal from '../../Util/DeleteModal';
 import useMain from '../../hooks/useMain';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const TextField = styled.input`
+	height: 32px;
+	width: 200px;
+	border-radius: 3px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border: 1px solid #e5e5e5;
+	padding: 0 32px 0 16px;
+
+	&:hover {
+		cursor: pointer;
+	}
+`;
+
+const ClearButton = styled.button`
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	height: 34px;
+	width: 32px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+const FilterComponent = ({ filterText, onFilter, onClear }) => (
+  <>
+    <TextField
+      id="search"
+      type="text"
+      placeholder="Filter By Name"
+      aria-label="Search Input"
+      value={filterText}
+      onChange={onFilter}
+    />
+    <ClearButton type="button" onClick={onClear}>
+      X
+    </ClearButton>
+  </>
+);
 
 const Store = ({ notify }) => {
   const { getStores, deleteStore } = useMain();
@@ -96,6 +142,26 @@ const Store = ({ notify }) => {
     //   notify('error', ans.message);
     // }
   };
+  
+  const [filterText, setFilterText] = React.useState('');
+  const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
+  
+  const filteredItems = data.filter(
+    item => item.title && item.title.toLowerCase().includes(filterText.toLowerCase()) || item.subHeading && item.subHeading.toLowerCase().includes(filterText.toLowerCase()) || item.priority && item.priority.toLowerCase().includes(filterText.toLowerCase()),
+  );
+
+  const subHeaderComponentMemo = React.useMemo(() => {
+    const handleClear = () => {
+      if (filterText) {
+        setResetPaginationToggle(!resetPaginationToggle);
+        setFilterText('');
+      }
+    };
+
+    return (
+      <FilterComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
+    );
+  }, [filterText, resetPaginationToggle]);
 
   // const ExpandedComponent = ({ data }) => {
   //   console.log(data)
@@ -132,10 +198,12 @@ const Store = ({ notify }) => {
 
         <DataTable
           columns={columns}
-          data={data}
+          data={filteredItems}
           striped={true}
           title="Store"
           pagination
+          subHeader
+          subHeaderComponent={subHeaderComponentMemo}
           // expandableRows
           // expandableRowsComponent={ExpandedComponent}
         />
