@@ -24,7 +24,7 @@ const SignIn = (props) => {
     // console.log(ans);
 
     // if (ans.status) {
-    if (value.email === "admin@admin.com" && value.password === "123456") {
+    if (value.email === "contact@savingbunch.ae" && value.password === "1@SavingBunch") {
       setValue({
         email: '',
         password: ''
