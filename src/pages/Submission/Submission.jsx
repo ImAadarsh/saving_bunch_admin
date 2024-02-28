@@ -154,7 +154,7 @@ const Submission = ({ notify }) => {
   const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
   
   const filteredItems = data.filter(
-    item => item.sequence && item.sequence.toLowerCase().includes(filterText.toLowerCase()),
+    item => (item.brandName && item.brandName.toLowerCase().includes(filterText.toLowerCase()) || item.storeWebsite && item.storeWebsite.toLowerCase().includes(filterText.toLowerCase()) || item.fullName && item.fullName.toLowerCase().includes(filterText.toLowerCase()) || item.officeNumber && item.officeNumber.toLowerCase().includes(filterText.toLowerCase())),
   );
 
   const subHeaderComponentMemo = React.useMemo(() => {

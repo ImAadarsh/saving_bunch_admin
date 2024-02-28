@@ -177,9 +177,9 @@ const Coupan = ({ notify }) => {
   const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
   
   const filteredItems = data.filter(
-    item => item.sequence && item.sequence.toLowerCase().includes(filterText.toLowerCase()),
+    item => (item.title && item.title.toLowerCase().includes(filterText.toLowerCase()) || item.coupanCode && item.coupanCode.toLowerCase().includes(filterText.toLowerCase())),
   );
-
+  
   const subHeaderComponentMemo = React.useMemo(() => {
     const handleClear = () => {
       if (filterText) {

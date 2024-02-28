@@ -103,7 +103,7 @@ const Email = ({ notify }) => {
   const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
   
   const filteredItems = data.filter(
-    item => item.sequence && item.sequence.toLowerCase().includes(filterText.toLowerCase()),
+    item => item.email && item.email.toLowerCase().includes(filterText.toLowerCase()),
   );
 
   const subHeaderComponentMemo = React.useMemo(() => {
